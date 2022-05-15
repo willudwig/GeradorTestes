@@ -1,5 +1,6 @@
 ﻿using GeradorTestes.Infra.Arquivo.Compartilhado.Interfaces;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 
 namespace GeradorTestes.Infra.Arquivo
@@ -25,14 +26,28 @@ namespace GeradorTestes.Infra.Arquivo
 
         public void GravarDadosEmArquivo(DataContext dados)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings();
+            try
+            {
+                string folder = @"C:\temp\";
 
-            settings.Formatting = Formatting.Indented;
-            settings.PreserveReferencesHandling = PreserveReferencesHandling.All;
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
 
-            string arquivoJson = JsonConvert.SerializeObject(dados, settings);
+                JsonSerializerSettings settings = new JsonSerializerSettings();
 
-            File.WriteAllText(arquivo, arquivoJson);
+                settings.Formatting = Formatting.Indented;
+                settings.PreserveReferencesHandling = PreserveReferencesHandling.All;
+
+                string arquivoJson = JsonConvert.SerializeObject(dados, settings);
+
+                File.WriteAllText(arquivo, arquivoJson);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

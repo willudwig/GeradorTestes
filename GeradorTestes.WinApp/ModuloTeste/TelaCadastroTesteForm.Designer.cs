@@ -98,7 +98,7 @@
             // 
             // tbDisciplina
             // 
-            this.tbDisciplina.Location = new System.Drawing.Point(464, 53);
+            this.tbDisciplina.Location = new System.Drawing.Point(468, 53);
             this.tbDisciplina.Multiline = true;
             this.tbDisciplina.Name = "tbDisciplina";
             this.tbDisciplina.ReadOnly = true;
@@ -109,7 +109,7 @@
             // 
             this.lblDisciplina.AutoSize = true;
             this.lblDisciplina.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDisciplina.Location = new System.Drawing.Point(464, 29);
+            this.lblDisciplina.Location = new System.Drawing.Point(468, 29);
             this.lblDisciplina.Name = "lblDisciplina";
             this.lblDisciplina.Size = new System.Drawing.Size(77, 21);
             this.lblDisciplina.TabIndex = 8;
