@@ -222,7 +222,6 @@ namespace GeradorTestes.WinApp
         {
             CarregarTextBoxDisciplina();
         }
-
      
         private void ExibirCabecalho()
         {
@@ -285,14 +284,6 @@ namespace GeradorTestes.WinApp
            Teste.gabarito += numQst + " - " + q.Resposta + "\n";
         }
 
-        public override string ToString()
-        {
-           return          $"" + altA + "\n" +
-                           $"" + altB + "\n" +
-                           $"" + altC + "\n" +
-                           $"" + altD + "\n";
-        }
-
         private void TrazerQuestão()
         {
             List<Questao> filtradas = questoesTeste.FindAll(x => x.TituloMateria.Equals(cbMateria.Text));
@@ -300,11 +291,6 @@ namespace GeradorTestes.WinApp
             qAleatoria = filtradas[0];
 
             aleatorias = filtradas;
-        }
-
-        private bool VerificarQuestaoExistente(Questao questao)
-        {
-            return aleatorias.Exists(x => x.Numero.Equals(questao.Numero));
         }
     }
 }
