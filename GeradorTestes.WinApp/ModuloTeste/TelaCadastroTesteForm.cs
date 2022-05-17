@@ -179,9 +179,13 @@ namespace GeradorTestes.WinApp
             int i = 0;
             questaoQueJafoi = new();
 
+            if (aleatorias.Count == 0)
+                return;
+
             while (i < numerosEscolhidoComboBox)
             {
                 escolhida = aleatorias[rnd.Next(aleatorias.Count)];
+
 
                 if (questaoQueJafoi.Contains(escolhida))
 
@@ -250,6 +254,9 @@ namespace GeradorTestes.WinApp
 
         private void ExibirCabecalho()
         {
+            if (qAleatoria == null)
+                return;
+
             cabecalho = $"Data: " + teste.Data.ToString() + "\n" +
                             $"\n" +
                             $"Teste de " + qAleatoria.Materia.Titulo + "\n" +
