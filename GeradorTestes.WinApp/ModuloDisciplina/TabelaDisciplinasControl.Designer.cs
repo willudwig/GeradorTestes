@@ -41,7 +41,7 @@
             this.grid.Name = "grid";
             this.grid.RowHeadersWidth = 62;
             this.grid.RowTemplate.Height = 33;
-            this.grid.Size = new System.Drawing.Size(729, 424);
+            this.grid.Size = new System.Drawing.Size(1861, 781);
             this.grid.TabIndex = 0;
             // 
             // TabelaDisciplinasControl
@@ -50,7 +50,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grid);
             this.Name = "TabelaDisciplinasControl";
-            this.Size = new System.Drawing.Size(729, 424);
+            this.Size = new System.Drawing.Size(1861, 781);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.ResumeLayout(false);
 

@@ -109,16 +109,16 @@ namespace GeradorTestes.WinApp
 
         private void ConfigurarListagem()
         {
-            AtualizarRodape("");
+            try 
+            { 
+                AtualizarRodape("");
 
-            var listagemControl = controlador.ObtemListagem();
+                var listagemControl = controlador.ObtemListagem();
 
-            panelPrincipal.Controls.Clear();
+                panelPrincipal.Controls.Clear();
 
-            listagemControl.Dock = DockStyle.Fill;
+                //listagemControl.Dock = DockStyle.Fill;
 
-            try
-            {
                 panelPrincipal.Controls.Add(listagemControl);
             }
             catch (InvalidOperationException)

@@ -1,6 +1,5 @@
 ﻿using GeradorTeste.Dominio.ModuloDisciplina;
 using GeradorTeste.Dominio.ModuloMateria;
-using GeradorTeste.Dominio.ModuloQuestao;
 using GeradorTestes.WinApp.Compartilhado;
 using GeradorTestes.WinApp.ModuloMateria;
 using System.Collections.Generic;

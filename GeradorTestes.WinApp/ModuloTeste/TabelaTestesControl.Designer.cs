@@ -41,7 +41,7 @@
             this.grid.Name = "grid";
             this.grid.RowHeadersWidth = 62;
             this.grid.RowTemplate.Height = 33;
-            this.grid.Size = new System.Drawing.Size(810, 540);
+            this.grid.Size = new System.Drawing.Size(1861, 781);
             this.grid.TabIndex = 0;
             // 
             // TabelaTestesControl
@@ -50,7 +50,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grid);
             this.Name = "TabelaTestesControl";
-            this.Size = new System.Drawing.Size(810, 540);
+            this.Size = new System.Drawing.Size(1861, 781);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.ResumeLayout(false);
 
