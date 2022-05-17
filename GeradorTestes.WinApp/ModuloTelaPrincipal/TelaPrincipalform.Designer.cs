@@ -40,7 +40,7 @@
             this.btnInserir = new System.Windows.Forms.ToolStripButton();
             this.btnEditar = new System.Windows.Forms.ToolStripButton();
             this.btnExcluir = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btnPDF = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblToolPrincipal = new System.Windows.Forms.ToolStripLabel();
@@ -59,7 +59,7 @@
             this.cadastroMenuItem});
             this.menuPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuPrincipal.Name = "menuPrincipal";
-            this.menuPrincipal.Size = new System.Drawing.Size(1497, 33);
+            this.menuPrincipal.Size = new System.Drawing.Size(1861, 33);
             this.menuPrincipal.TabIndex = 0;
             this.menuPrincipal.Text = "menuStrip1";
             // 
@@ -78,7 +78,7 @@
             // 
             this.disciplinaMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.disciplinaMenuItem.Name = "disciplinaMenuItem";
-            this.disciplinaMenuItem.Size = new System.Drawing.Size(197, 34);
+            this.disciplinaMenuItem.Size = new System.Drawing.Size(270, 34);
             this.disciplinaMenuItem.Text = "Disciplinas";
             this.disciplinaMenuItem.Click += new System.EventHandler(this.disciplinaMenuItem_Click);
             // 
@@ -86,7 +86,7 @@
             // 
             this.materiaMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.materiaMenuItem.Name = "materiaMenuItem";
-            this.materiaMenuItem.Size = new System.Drawing.Size(197, 34);
+            this.materiaMenuItem.Size = new System.Drawing.Size(270, 34);
             this.materiaMenuItem.Text = "Matérias";
             this.materiaMenuItem.Click += new System.EventHandler(this.materiaMenuItem_Click);
             // 
@@ -94,7 +94,7 @@
             // 
             this.questaoMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.questaoMenuItem.Name = "questaoMenuItem";
-            this.questaoMenuItem.Size = new System.Drawing.Size(197, 34);
+            this.questaoMenuItem.Size = new System.Drawing.Size(270, 34);
             this.questaoMenuItem.Text = "Questões";
             this.questaoMenuItem.Click += new System.EventHandler(this.questaoMenuItem_Click);
             // 
@@ -102,7 +102,7 @@
             // 
             this.testeMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.testeMenuItem.Name = "testeMenuItem";
-            this.testeMenuItem.Size = new System.Drawing.Size(197, 34);
+            this.testeMenuItem.Size = new System.Drawing.Size(270, 34);
             this.testeMenuItem.Text = "Testes";
             this.testeMenuItem.Click += new System.EventHandler(this.testeMenuItem_Click);
             // 
@@ -112,7 +112,7 @@
             this.panelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelPrincipal.Location = new System.Drawing.Point(0, 66);
             this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(1497, 675);
+            this.panelPrincipal.Size = new System.Drawing.Size(1861, 781);
             this.panelPrincipal.TabIndex = 1;
             // 
             // toolStrip
@@ -123,13 +123,13 @@
             this.btnInserir,
             this.btnEditar,
             this.btnExcluir,
-            this.toolStripButton1,
+            this.btnPDF,
             this.toolStripSeparator1,
             this.toolStripSeparator2,
             this.lblToolPrincipal});
             this.toolStrip.Location = new System.Drawing.Point(0, 33);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1497, 33);
+            this.toolStrip.Size = new System.Drawing.Size(1861, 33);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -169,16 +169,17 @@
             this.btnExcluir.ToolTipText = "excluir registro selecionado";
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
-            // toolStripButton1
+            // btnPDF
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Enabled = false;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(34, 28);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.ToolTipText = "gerar arquivo pdf";
+            this.btnPDF.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPDF.Enabled = false;
+            this.btnPDF.Image = ((System.Drawing.Image)(resources.GetObject("btnPDF.Image")));
+            this.btnPDF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPDF.Name = "btnPDF";
+            this.btnPDF.Size = new System.Drawing.Size(34, 28);
+            this.btnPDF.Text = "toolStripButton1";
+            this.btnPDF.ToolTipText = "gerar arquivo pdf";
+            this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click);
             // 
             // toolStripSeparator1
             // 
@@ -202,9 +203,9 @@
             this.statusRodape.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusRodape.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatusPrincipal});
-            this.statusRodape.Location = new System.Drawing.Point(0, 741);
+            this.statusRodape.Location = new System.Drawing.Point(0, 847);
             this.statusRodape.Name = "statusRodape";
-            this.statusRodape.Size = new System.Drawing.Size(1497, 32);
+            this.statusRodape.Size = new System.Drawing.Size(1861, 32);
             this.statusRodape.TabIndex = 3;
             // 
             // lblStatusPrincipal
@@ -217,7 +218,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1497, 773);
+            this.ClientSize = new System.Drawing.Size(1861, 879);
             this.Controls.Add(this.panelPrincipal);
             this.Controls.Add(this.statusRodape);
             this.Controls.Add(this.toolStrip);
@@ -258,6 +259,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem materiaMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btnPDF;
     }
 }

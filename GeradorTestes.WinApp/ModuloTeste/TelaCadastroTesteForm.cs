@@ -4,12 +4,10 @@ using GeradorTeste.Dominio.ModuloMateria;
 using GeradorTeste.Dominio.ModuloTeste;
 using GeradorTestes.Infra.Arquivo.Compartilhado;
 using GeradorTestes.Infra.Arquivo.ModuloMateria;
-using GeradorTestes.Infra.Arquivo.ModuloTeste;
-using GeradorTestes.WinApp.Compartilhado;
 using GeradorTestes.WinApp.ModuloTeste;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Drawing;
 using System.Windows.Forms;
 using static GeradorTeste.Dominio.ModuloMateria.Materia;
 using static GeradorTeste.Dominio.ModuloTeste.Teste;
@@ -29,6 +27,7 @@ namespace GeradorTestes.WinApp
         Questao q;
         int numQst;
         public RepositorioMateriaArquivo rpMat;
+        public ControladorTeste contrlTeste;
         string altA, altB, altC, altD;
         string cabecalho, questao;
 
@@ -41,7 +40,7 @@ namespace GeradorTestes.WinApp
         {
             get
             {
-               return teste;
+                return teste;
             }
             set
             {
@@ -54,7 +53,7 @@ namespace GeradorTestes.WinApp
         public TelaCadastroTesteForm()
         {
             InitializeComponent();
-            materiasTeste = new(); 
+            materiasTeste = new();
             questoesTeste = new();
             aleatorias = new();
             falsasComVerdadeira = new();
@@ -79,7 +78,7 @@ namespace GeradorTestes.WinApp
                 {
                     cbMateria.Items.Add(m.Titulo);
                 }
-                        
+
             }
         }
 
@@ -92,7 +91,7 @@ namespace GeradorTestes.WinApp
         {
             CarregarMateriasNoTeste(cbSerie.Text);
             cbMateria.Enabled = true;
-            
+
         }
 
         private void TelaCadastroTesteForm_Load(object sender, EventArgs e)
@@ -164,7 +163,7 @@ namespace GeradorTestes.WinApp
             int i = 0;
             questaoQueJafoi = new();
 
-            while(i < numerosEscolhidoComboBox)
+            while (i < numerosEscolhidoComboBox)
             {
                 escolhida = aleatorias[rnd.Next(aleatorias.Count)];
 
@@ -184,12 +183,12 @@ namespace GeradorTestes.WinApp
                                     $"" + altA + "\n" +
                                     $"" + altB + "\n" +
                                     $"" + altC + "\n" +
-                                    $"" + altD + "\n"+
+                                    $"" + altD + "\n" +
                                     $"\n";
 
                     aleatorias.Remove(escolhida);
                 }
-                
+
                 numQst++;
 
                 i++;
@@ -202,7 +201,7 @@ namespace GeradorTestes.WinApp
             btnOK.Enabled = true;
             btnLimpar.Enabled = true;
             btnGabarito.Enabled = true;
-            btnGerarPDF.Enabled = true; 
+            btnGerarPDF.Enabled = true;
         }
 
         private bool VerificacoesBtnQuestao()
@@ -219,7 +218,7 @@ namespace GeradorTestes.WinApp
                 return false;
             }
 
-            if( Convert.ToInt32(cbNumeroQsts.Text) > questoesTeste.Count)
+            if (Convert.ToInt32(cbNumeroQsts.Text) > questoesTeste.Count)
             {
                 MessageBox.Show("Número de questões insuficientes para a quantidade selecionada", "Aviso");
                 return false;
@@ -232,10 +231,10 @@ namespace GeradorTestes.WinApp
         {
             CarregarTextBoxDisciplina();
         }
-     
+
         private void ExibirCabecalho()
         {
-            cabecalho =     $"Data: " + teste.Data.ToString() + "\n" +
+            cabecalho = $"Data: " + teste.Data.ToString() + "\n" +
                             $"\n" +
                             $"Teste de " + qAleatoria.Materia.Titulo + "\n" +
                             $"Disciplina: " + qAleatoria.Materia.Disciplina.Nome + "\n" +
@@ -247,14 +246,14 @@ namespace GeradorTestes.WinApp
         private void PosicionarAlternativas(Questao q)
         {
             var rnd = new Random();
-           
+
             AdicionarAoGabarito(q);
 
             q.alternativas.Add(q.Resposta); // adiciona a resposta verdadeira às outras alternativas
 
             falsasComVerdadeira = new();
 
-            while(falsasComVerdadeira.Count < 4)
+            while (falsasComVerdadeira.Count < 4)
             {
                 string alternescolhida = q.alternativas[rnd.Next(q.alternativas.Count)];
 
@@ -275,7 +274,7 @@ namespace GeradorTestes.WinApp
 
         private void btnGabarito_Click(object sender, EventArgs e)
         {
-            rtTeste.Text +=    $"=====================================================\n" +
+            rtTeste.Text += $"=====================================================\n" +
                                $"\n" +
                                $"Gabarito:\n" +
                                $"\n" +
@@ -295,7 +294,7 @@ namespace GeradorTestes.WinApp
 
         private void AdicionarAoGabarito(Questao q)
         {
-           Teste.gabarito += numQst + " - " + q.Resposta + "\n";
+            Teste.gabarito += numQst + " - " + q.Resposta + "\n";
         }
 
         private void TrazerQuestão()
@@ -305,6 +304,27 @@ namespace GeradorTestes.WinApp
             qAleatoria = filtradas[0];
 
             aleatorias = filtradas;
+        }
+
+        internal void DeixarSomenteBotaoPDF()
+        {
+            cbNumeroQsts.Visible = false;
+            cbSerie.Visible = false;
+            cbMateria.Visible = false;
+            btnGerarQuestoes.Visible = false;
+            btnGabarito.Visible = false;
+            btnOK.Visible = false;
+            btnLimpar.Visible = false;
+            tbDisciplina.Visible = false;
+            lblDisciplina.Visible = false;
+            lblMateria.Visible = false;
+            lblSerie.Visible = false;
+            lblNumero.Visible = false;
+
+            btnGerarPDF.BackColor = System.Drawing.Color.OrangeRed;
+            btnGerarPDF.ForeColor = Color.White;
+            btnGerarPDF.Font = new Font(Font, FontStyle.Bold);
+            btnGerarPDF.Enabled = true;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace GeradorTestes.WinApp.Compartilhado
         void Excluir();
         UserControl ObtemListagem();
         IConfiguracaoToolStrip ObtemConfiguracaoToolStrip();
+        void ExibirTelaGerarPDF();
 
     }
 }

@@ -115,5 +115,10 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
             return tabelaDisciplinas;
         }
+
+        public void ExibirTelaGerarPDF()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

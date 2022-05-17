@@ -63,24 +63,28 @@ namespace GeradorTestes.WinApp
         {
             ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
             HabilitarBotoesToolStrip();
+            btnPDF.Enabled = false;
         }
 
         private void materiaMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
             HabilitarBotoesToolStrip();
+            btnPDF.Enabled = false;
         }
 
         private void disciplinaMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
             HabilitarBotoesToolStrip();
+            btnPDF.Enabled = false;
         }
 
         private void testeMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
             HabilitarBotoesToolStrip();
+            btnPDF.Enabled = true;
         }
 
         private void HabilitarBotoesToolStrip()
@@ -162,6 +166,12 @@ namespace GeradorTestes.WinApp
         private void TelaPrincipalForm_Load(object sender, EventArgs e)
         {
             Instancia.AtualizarRodape("");
+        }
+
+        private void btnPDF_Click(object sender, EventArgs e)
+        {
+            TelaCadastroTesteForm telaTeste = new();
+            controlador.ExibirTelaGerarPDF();
         }
     }
 }

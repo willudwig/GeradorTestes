@@ -67,6 +67,11 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             }
         }
 
+        public void ExibirTelaGerarPDF()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Inserir()
         {
             TelaCadastroMateriaForm tela = new();

@@ -123,5 +123,9 @@ namespace GeradorTestes.WinApp.ModuloQuestao
             return repoQuestao.SelecionarPorNumero(numero);
         }
 
+        public void ExibirTelaGerarPDF()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

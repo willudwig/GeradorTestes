@@ -134,5 +134,26 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
             return todas;
         }
+
+        public void ExibirTelaGerarPDF()
+        {
+            Teste testeSelecionado = ObtemTesteSelecionado();
+
+            if (testeSelecionado == null)
+            {
+                MessageBox.Show("Selecione um teste primeiro",
+                "Edição de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            TelaCadastroTesteForm tela = new();
+
+            tela.Teste = testeSelecionado;
+
+            tela.DeixarSomenteBotaoPDF();
+
+            tela.ShowDialog();
+        }
+
     }
 }
