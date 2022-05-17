@@ -23,7 +23,15 @@ namespace GeradorTestes.WinApp
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TelaPrincipalForm());
+            try
+            {
+                Application.Run(new TelaPrincipalForm());
+            }
+            catch(InvalidOperationException invex)
+            {
+                if (invex.Message == "System.InvalidOperationException")
+                    return;
+            }
 
             contexto.GravarDados();
         }

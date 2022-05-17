@@ -2,6 +2,7 @@
 using GeradorTeste.Dominio.ModuloMateria;
 using GeradorTeste.Dominio.ModuloQuestao;
 using GeradorTestes.WinApp.Compartilhado;
+using GeradorTestes.WinApp.ModuloMateria;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -11,16 +12,13 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
     {
         private readonly IRepositorioDisciplina repoDisciplina;
         private readonly IRepositorioMateria repoMateria;
-        private readonly IRepositorioQuestao repoQuestao;
         TabelaDisciplinasControl tabelaDisciplinas;
-        public ControladorMateria controladorMateria;
 
-        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria, IRepositorioQuestao repositorioQuestao, ControladorMateria cm)
+
+        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria)
         {
             repoDisciplina = repositorioDisciplina;
             repoMateria = repositorioMateria;
-            repoQuestao = repositorioQuestao;
-            controladorMateria = cm;
         }
 
         public void Editar()
@@ -42,21 +40,12 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
             DialogResult resultado = tela.ShowDialog();
 
-            Disciplina outraDisc = new();
-
-            outraDisc.Nome = tela.nomeAntigo;
-
-            controladorMateria.antigaDisciplina = outraDisc;
+            EditarMateriaPelaDisciplina(tela.nomeAntigo, tela.Disciplina);
 
             if (resultado == DialogResult.OK)
             {
-                repoDisciplina.Serializador();
                 CarregarDisciplinas();
             }
-
-            Disciplina nova = new();
-            nova.Nome = tela.nomeNovo;
-            controladorMateria.EditarMateriaPelaDisciplina(controladorMateria.antigaDisciplina, nova);
         }
 
         private Disciplina ObtemDisciplinaSelecionada()
@@ -129,6 +118,30 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
         public void ExibirTelaGerarPDF()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void EditarMateriaPelaDisciplina(string antiga, Disciplina discEditada)
+        {
+            TelaCadastroMateriaForm tela = new();
+
+            List<Materia> materias = repoMateria.SelecionarTodos();
+
+            if (materias.Count == 0)
+                return;
+
+            List<Materia> materiasSelecionadas = materias.FindAll(m => m.Disciplina.Nome == antiga);
+
+            if (materiasSelecionadas.Count == 0)
+                return;
+
+            foreach (Materia mat in materiasSelecionadas)
+            {
+                mat.Disciplina = discEditada;
+
+                tela.Materia = mat;
+
+                tela.GravarRegistro = repoMateria.Editar;
+            }
         }
     }
 }

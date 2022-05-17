@@ -78,7 +78,7 @@
             // 
             this.disciplinaMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.disciplinaMenuItem.Name = "disciplinaMenuItem";
-            this.disciplinaMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.disciplinaMenuItem.Size = new System.Drawing.Size(197, 34);
             this.disciplinaMenuItem.Text = "Disciplinas";
             this.disciplinaMenuItem.Click += new System.EventHandler(this.disciplinaMenuItem_Click);
             // 
@@ -86,7 +86,7 @@
             // 
             this.materiaMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.materiaMenuItem.Name = "materiaMenuItem";
-            this.materiaMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.materiaMenuItem.Size = new System.Drawing.Size(197, 34);
             this.materiaMenuItem.Text = "Matérias";
             this.materiaMenuItem.Click += new System.EventHandler(this.materiaMenuItem_Click);
             // 
@@ -94,7 +94,7 @@
             // 
             this.questaoMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.questaoMenuItem.Name = "questaoMenuItem";
-            this.questaoMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.questaoMenuItem.Size = new System.Drawing.Size(197, 34);
             this.questaoMenuItem.Text = "Questões";
             this.questaoMenuItem.Click += new System.EventHandler(this.questaoMenuItem_Click);
             // 
@@ -102,7 +102,7 @@
             // 
             this.testeMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.testeMenuItem.Name = "testeMenuItem";
-            this.testeMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.testeMenuItem.Size = new System.Drawing.Size(197, 34);
             this.testeMenuItem.Text = "Testes";
             this.testeMenuItem.Click += new System.EventHandler(this.testeMenuItem_Click);
             // 
@@ -223,6 +223,7 @@
             this.Controls.Add(this.statusRodape);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuPrincipal);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuPrincipal;
             this.MaximizeBox = false;

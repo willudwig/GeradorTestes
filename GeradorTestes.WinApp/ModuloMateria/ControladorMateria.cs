@@ -1,7 +1,10 @@
-﻿using GeradorTeste.Dominio.ModuloDisciplina;
+﻿using GeradorTeste.Dominio;
+using GeradorTeste.Dominio.ModuloDisciplina;
 using GeradorTeste.Dominio.ModuloMateria;
+using GeradorTeste.Dominio.ModuloQuestao;
 using GeradorTestes.WinApp.Compartilhado;
 using GeradorTestes.WinApp.ModuloMateria;
+using GeradorTestes.WinApp.ModuloQuestao;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -11,13 +14,14 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
     {
         private readonly IRepositorioMateria repoMateria;
         private readonly IRepositorioDisciplina repoDisciplina;
+        private readonly IRepositorioQuestao repoQuestao;
         private TabelaMateriasControl tabelaMaterias;
-        public Disciplina antigaDisciplina;
 
-        public ControladorMateria(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
+        public ControladorMateria(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina, IRepositorioQuestao repositorioQuestao)
         {
             repoMateria = repositorioMateria;
             repoDisciplina = repositorioDisciplina;
+            repoQuestao = repositorioQuestao;
         }
 
         public void Editar()
@@ -41,9 +45,35 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
             DialogResult resultado = tela.ShowDialog();
 
+            EditarQuestaoPelaMateria(tela.nomeAntigo, tela.Materia);
+
             if (resultado == DialogResult.OK)
             {
                 CarregarMaterias();
+            }
+        }
+
+        private void EditarQuestaoPelaMateria(string nomeAntigo, Materia materia)
+        {
+            TelaCadastroQuestaoForm tela = new();
+
+            List<Questao> questoes = repoQuestao.SelecionarTodos();
+
+            if (questoes.Count == 0)
+                return;
+
+            List<Questao> qstsSelecionadas = questoes.FindAll(q => q.Materia.Titulo == nomeAntigo);
+
+            if (qstsSelecionadas.Count == 0)
+                return;
+
+            foreach (Questao q in qstsSelecionadas)
+            {
+                q.Materia = materia;
+
+                tela.Questao = q;
+
+                tela.GravarRegistro = repoQuestao.Editar;
             }
         }
 
@@ -121,43 +151,12 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {materias.Count} materia(s)");
         }
 
-        private Materia ObtemMateriaSelecionada()
+        public Materia ObtemMateriaSelecionada()
         {
             var numero = tabelaMaterias.ObtemNumerMateriaSelecionada();
 
             return repoMateria.SelecionarPorNumero(numero);
         }
-    
 
-        public void EditarMateriaPelaDisciplina(Disciplina antiga, Disciplina discEditada)
-        {
-            TelaCadastroMateriaForm tela = new();
-
-            List<Materia> materias = repoMateria.SelecionarTodos();
-
-            if (materias.Count == 0)
-                return;
-
-            List<Materia> materiasSelecionadas = materias.FindAll(m => m.Disciplina.Nome == antiga.Nome);
-
-            if (materiasSelecionadas.Count == 0)
-                return;
-
-            foreach (Materia mat in materiasSelecionadas)
-            {
-                mat.Disciplina = discEditada;
-                Materia escolhida = mat;
-
-                Materia matSelec = ObtemMateriaSelecionada();
-
-                matSelec.Disciplina.Nome = escolhida.NomeDisciplina;
-
-                tela.Materia = matSelec;
-
-                tela.GravarRegistro = repoMateria.Editar;
-
-                repoMateria.Serializardor();
-            }
-        }
     }
 }

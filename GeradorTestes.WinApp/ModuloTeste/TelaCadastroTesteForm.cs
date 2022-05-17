@@ -317,6 +317,9 @@ namespace GeradorTestes.WinApp
         {
             List<Questao> filtradas = questoesTeste.FindAll(x => x.TituloMateria.Equals(cbMateria.Text));
 
+            if (filtradas.Count == 0)
+                return;
+
             qAleatoria = filtradas[0];
 
             aleatorias = filtradas;

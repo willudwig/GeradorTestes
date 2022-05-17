@@ -1,8 +1,6 @@
 ﻿using FluentValidation.Results;
 using GeradorTeste.Dominio;
 using GeradorTeste.Dominio.ModuloMateria;
-using GeradorTestes.Infra.Arquivo.ModuloMateria;
-using GeradorTestes.WinApp.ModuloMateria;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -125,6 +123,7 @@ namespace GeradorTestes.WinApp.ModuloQuestao
                 btnOK.Enabled = true;
                 lblTodos.Visible = false;
                 lbContador.Text = "03 de 03";
+                btnOK.Focus();
             }
 
             tbAlternativa.Clear();

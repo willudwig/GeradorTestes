@@ -11,6 +11,7 @@ namespace GeradorTestes.WinApp.ModuloMateria
     public partial class TelaCadastroMateriaForm : Form
     {
         private Materia materia;
+        public string nomeAntigo;
 
         public List<Disciplina> disciplinasMateria;
 
@@ -52,6 +53,8 @@ namespace GeradorTestes.WinApp.ModuloMateria
             TelaPrincipalForm.Instancia.AtualizarRodape("");
             CarregarDisciplinasComboBox();
             DeixarComboBoxSelecionados();
+
+            nomeAntigo = tbTitulo.Text;
         }
 
         private void DeixarComboBoxSelecionados()

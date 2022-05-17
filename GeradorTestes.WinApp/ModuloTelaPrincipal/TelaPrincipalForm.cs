@@ -42,9 +42,9 @@ namespace GeradorTestes.WinApp
 
             controladores = new Dictionary<string, IControlador>();
 
-            ControladorMateria contMat = new ControladorMateria(repositorioMateria, repositorioDisciplina);
+            ControladorMateria contMat = new ControladorMateria(repositorioMateria, repositorioDisciplina, repositorioQuestao);
 
-            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina, repositorioMateria, repositorioQuestao, contMat));
+            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina, repositorioMateria));
             controladores.Add("Matérias", contMat);
             controladores.Add("Questões", new ControladorQuestao(repositorioQuestao, repositorioMateria));
              controladores.Add("Testes", new ControladorTeste(repositorioTeste, repositorioMateria, repositorioQuestao));
@@ -117,9 +117,18 @@ namespace GeradorTestes.WinApp
 
             listagemControl.Dock = DockStyle.Fill;
 
-            try { panelPrincipal.Controls.Add(listagemControl); } catch (InvalidOperationException){ return; };
+            try
+            {
+                panelPrincipal.Controls.Add(listagemControl);
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Operação durante redimensionamento de coluna de preenchimento automático", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } 
         }
 
+            
+    
         private void ConfigurarToolbox()
         {
             IConfiguracaoToolStrip configuracao = controlador.ObtemConfiguracaoToolStrip();
