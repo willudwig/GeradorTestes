@@ -39,7 +39,11 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
             TelaCadastroTesteForm tela = new();
 
+            tela.DesabilitarBotoesDeCima();
+
             tela.Teste = testeSelecionado;
+
+            CarregarMateriasNoTeste(tela);
 
             tela.GravarRegistro = repoTeste.Editar;
 
@@ -49,7 +53,9 @@ namespace GeradorTestes.WinApp.ModuloTeste
             {
                 CarregarTestes();
             }
+           
         }
+
 
         public void Excluir()
         {
@@ -80,6 +86,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
             tela.GravarRegistro = repoTeste.Inserir;
 
             CarregarMateriasNoTeste(tela);
+
             tela.questoesTeste = CarregarQuestoes();
 
             DialogResult resultado = tela.ShowDialog();

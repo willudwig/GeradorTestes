@@ -113,22 +113,38 @@ namespace GeradorTestes.WinApp
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            teste.Prova = rtTeste.Text;
-            teste.Materia.Titulo = cbMateria.Text;
-            teste.Materia.Serie = (EnumeradorSerie)cbSerie.SelectedIndex;
-            teste.NumeroQuestoes = (EnumNumeroQuestoes)cbNumeroQsts.SelectedIndex;
-            teste.Materia.Disciplina.Nome = tbDisciplina.Text;
-
-            ValidationResult resultadoValidacao = GravarRegistro(teste);
-
-            if (resultadoValidacao.IsValid == false)
+            if (VerificarCampos() == true)
             {
-                string erro = resultadoValidacao.Errors[0].ErrorMessage;
+                teste.Prova = rtTeste.Text;
+                teste.Materia.Titulo = cbMateria.Text;
+                teste.Materia.Serie = (EnumeradorSerie)cbSerie.SelectedIndex;
+                teste.NumeroQuestoes = (EnumNumeroQuestoes)cbNumeroQsts.SelectedIndex;
+                teste.Materia.Disciplina.Nome = tbDisciplina.Text;
 
-                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+                ValidationResult resultadoValidacao = GravarRegistro(teste);
 
-                DialogResult = DialogResult.None;
+                if (resultadoValidacao.IsValid == false)
+                {
+                    string erro = resultadoValidacao.Errors[0].ErrorMessage;
+
+                    TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+
+                    DialogResult = DialogResult.None;
+                }
             }
+            else
+                return;
+        }
+
+        private bool VerificarCampos()
+        {
+            if(cbMateria.Text == "" || cbSerie.Text == "" || tbDisciplina.Text == "" || rtTeste.Text == "")
+            {
+                MessageBox.Show("Todos os campos devem estar com informações", "Aviso");
+                return false;
+            }
+
+            return true;
         }
 
         private void btnGerarQuestoes_Click(object sender, EventArgs e)
@@ -325,6 +341,16 @@ namespace GeradorTestes.WinApp
             btnGerarPDF.ForeColor = Color.White;
             btnGerarPDF.Font = new Font(Font, FontStyle.Bold);
             btnGerarPDF.Enabled = true;
+        }
+
+        public void DesabilitarBotoesDeCima()
+        {
+            btnGerarPDF.Visible = false;
+            btnGabarito.Visible = false;
+            btnGerarQuestoes.Visible = false;
+
+            btnOK.Enabled = true;
+            btnLimpar.Enabled = true;
         }
     }
 }
