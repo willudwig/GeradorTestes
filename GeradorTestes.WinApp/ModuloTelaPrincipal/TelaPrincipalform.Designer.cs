@@ -78,7 +78,7 @@
             // 
             this.disciplinaMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.disciplinaMenuItem.Name = "disciplinaMenuItem";
-            this.disciplinaMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.disciplinaMenuItem.Size = new System.Drawing.Size(197, 34);
             this.disciplinaMenuItem.Text = "Disciplinas";
             this.disciplinaMenuItem.Click += new System.EventHandler(this.disciplinaMenuItem_Click);
             // 
@@ -86,7 +86,7 @@
             // 
             this.materiaMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.materiaMenuItem.Name = "materiaMenuItem";
-            this.materiaMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.materiaMenuItem.Size = new System.Drawing.Size(197, 34);
             this.materiaMenuItem.Text = "Matérias";
             this.materiaMenuItem.Click += new System.EventHandler(this.materiaMenuItem_Click);
             // 
@@ -94,7 +94,7 @@
             // 
             this.questaoMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.questaoMenuItem.Name = "questaoMenuItem";
-            this.questaoMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.questaoMenuItem.Size = new System.Drawing.Size(197, 34);
             this.questaoMenuItem.Text = "Questões";
             this.questaoMenuItem.Click += new System.EventHandler(this.questaoMenuItem_Click);
             // 
@@ -102,16 +102,17 @@
             // 
             this.testeMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.testeMenuItem.Name = "testeMenuItem";
-            this.testeMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.testeMenuItem.Size = new System.Drawing.Size(197, 34);
             this.testeMenuItem.Text = "Testes";
             this.testeMenuItem.Click += new System.EventHandler(this.testeMenuItem_Click);
             // 
             // panelPrincipal
             // 
             this.panelPrincipal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelPrincipal.Location = new System.Drawing.Point(12, 69);
+            this.panelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelPrincipal.Location = new System.Drawing.Point(0, 66);
             this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(1473, 669);
+            this.panelPrincipal.Size = new System.Drawing.Size(1497, 675);
             this.panelPrincipal.TabIndex = 1;
             // 
             // toolStrip
@@ -217,9 +218,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1497, 773);
+            this.Controls.Add(this.panelPrincipal);
             this.Controls.Add(this.statusRodape);
             this.Controls.Add(this.toolStrip);
-            this.Controls.Add(this.panelPrincipal);
             this.Controls.Add(this.menuPrincipal);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuPrincipal;

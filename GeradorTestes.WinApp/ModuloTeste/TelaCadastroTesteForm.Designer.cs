@@ -39,7 +39,7 @@
             this.cbSerie = new System.Windows.Forms.ComboBox();
             this.lblNumero = new System.Windows.Forms.Label();
             this.cbNumeroQsts = new System.Windows.Forms.ComboBox();
-            this.btnQuestao = new System.Windows.Forms.Button();
+            this.btnGerarQuestoes = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
@@ -61,7 +61,7 @@
             this.panel1.Controls.Add(this.cbSerie);
             this.panel1.Controls.Add(this.lblNumero);
             this.panel1.Controls.Add(this.cbNumeroQsts);
-            this.panel1.Controls.Add(this.btnQuestao);
+            this.panel1.Controls.Add(this.btnGerarQuestoes);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -189,18 +189,18 @@
             this.cbNumeroQsts.Size = new System.Drawing.Size(102, 33);
             this.cbNumeroQsts.TabIndex = 1;
             // 
-            // btnQuestao
+            // btnGerarQuestoes
             // 
-            this.btnQuestao.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnQuestao.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnQuestao.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnQuestao.Location = new System.Drawing.Point(752, 29);
-            this.btnQuestao.Name = "btnQuestao";
-            this.btnQuestao.Size = new System.Drawing.Size(144, 59);
-            this.btnQuestao.TabIndex = 0;
-            this.btnQuestao.Text = "Gerar Questões";
-            this.btnQuestao.UseVisualStyleBackColor = false;
-            this.btnQuestao.Click += new System.EventHandler(this.btnQuestao_Click);
+            this.btnGerarQuestoes.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnGerarQuestoes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGerarQuestoes.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnGerarQuestoes.Location = new System.Drawing.Point(752, 29);
+            this.btnGerarQuestoes.Name = "btnGerarQuestoes";
+            this.btnGerarQuestoes.Size = new System.Drawing.Size(144, 59);
+            this.btnGerarQuestoes.TabIndex = 0;
+            this.btnGerarQuestoes.Text = "Gerar Questões";
+            this.btnGerarQuestoes.UseVisualStyleBackColor = false;
+            this.btnGerarQuestoes.Click += new System.EventHandler(this.btnGerarQuestoes_Click);
             // 
             // panel2
             // 
@@ -275,7 +275,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblNumero;
         private System.Windows.Forms.ComboBox cbNumeroQsts;
-        private System.Windows.Forms.Button btnQuestao;
+        private System.Windows.Forms.Button btnGerarQuestoes;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label lblSerie;

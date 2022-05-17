@@ -1,5 +1,6 @@
 ﻿using GeradorTeste.Dominio.ModuloDisciplina;
-using GeradorTestes.Infra.Arquivo;
+using GeradorTeste.Dominio.ModuloMateria;
+using GeradorTeste.Dominio.ModuloQuestao;
 using GeradorTestes.WinApp.Compartilhado;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -9,11 +10,16 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
     public class ControladorDisciplina : IControlador
     {
         private readonly IRepositorioDisciplina repoDisciplina;
-        private TabelaDisciplinasControl tabelaDisciplinas;
+        private readonly IRepositorioMateria repoMateria;
+        private readonly IRepositorioQuestao repoQuestao;
+        TabelaDisciplinasControl tabelaDisciplinas;
+        ControladorMateria controladorMateria;
 
-        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina)
+        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria, IRepositorioQuestao repositorioQuestao)
         {
             repoDisciplina = repositorioDisciplina;
+            repoMateria = repositorioMateria;
+            repoQuestao = repositorioQuestao;
         }
 
         public void Editar()
@@ -32,6 +38,8 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             tela.Disciplina = discSelecionada;
 
             tela.GravarRegistro = repoDisciplina.Editar;
+
+            controladorMateria = new(repoMateria, repoDisciplina);
 
             DialogResult resultado = tela.ShowDialog();
 

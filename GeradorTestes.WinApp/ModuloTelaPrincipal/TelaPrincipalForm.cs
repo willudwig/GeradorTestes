@@ -42,7 +42,7 @@ namespace GeradorTestes.WinApp
 
             controladores = new Dictionary<string, IControlador>();
 
-            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina));
+            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina, repositorioMateria, repositorioQuestao));
             controladores.Add("Matérias", new ControladorMateria(repositorioMateria, repositorioDisciplina));
             controladores.Add("Questões", new ControladorQuestao(repositorioQuestao, repositorioMateria));
              controladores.Add("Testes", new ControladorTeste(repositorioTeste, repositorioMateria, repositorioQuestao));

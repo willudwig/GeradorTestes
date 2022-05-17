@@ -57,7 +57,6 @@ namespace GeradorTestes.WinApp.ModuloMateria
         private void DeixarComboBoxSelecionados()
         {
             cbSerie.SelectedIndex = 0;
-            cbDisciplina.SelectedIndex = 0;
         }
 
         private void CarregarDisciplinasComboBox()
@@ -77,20 +76,42 @@ namespace GeradorTestes.WinApp.ModuloMateria
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            materia.Titulo = tbTitulo.Text;
-            materia.Serie = (EnumeradorSerie)cbSerie.SelectedIndex;
-            materia.Disciplina.Nome = cbDisciplina.Text; 
-
-            ValidationResult resultadoValidacao = GravarRegistro(materia);
-
-            if (resultadoValidacao.IsValid == false)
+            if (VerificarCombosVazios() == true)
             {
-                string erro = resultadoValidacao.Errors[0].ErrorMessage;
+                materia.Titulo = tbTitulo.Text;
+                materia.Serie = (EnumeradorSerie)cbSerie.SelectedIndex;
+                materia.Disciplina.Nome = cbDisciplina.Text;
 
-                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+                ValidationResult resultadoValidacao = GravarRegistro(materia);
 
-                DialogResult = DialogResult.None;
+                if (resultadoValidacao.IsValid == false)
+                {
+                    string erro = resultadoValidacao.Errors[0].ErrorMessage;
+
+                    TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+
+                    DialogResult = DialogResult.None;
+                }
             }
+            else
+                return;
+        }
+
+        private bool VerificarCombosVazios()
+        {
+            if(cbSerie.Text == "")
+            {
+                MessageBox.Show("Ao menos uma série de ver escolhida", "Aviso");
+                return false;
+            }
+
+            if (cbDisciplina.Text == "")
+            {
+                MessageBox.Show("Ao menos uma disciplina deve ser escolhida", "Aviso");
+                return false;
+            }
+
+            return true;
         }
     }
 }

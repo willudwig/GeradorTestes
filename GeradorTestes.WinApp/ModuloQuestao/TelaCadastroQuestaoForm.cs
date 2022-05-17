@@ -67,11 +67,12 @@ namespace GeradorTestes.WinApp.ModuloQuestao
             lblFalsa2.Text = "Falsa 02 - ";
             lblFalsa3.Text = "Falsa 03 - ";
             tbAlternativa.Clear();
+            tbAlternativa.Enabled = true;
+            CarregarMateriasNaQuestao();    
         }
 
         private void DeixarComboboxSelecionado()
         {
-            cbMateriaTitulo.SelectedIndex = 0;
             cbBimestre.SelectedIndex = 0;
         }
 
@@ -89,7 +90,7 @@ namespace GeradorTestes.WinApp.ModuloQuestao
 
         private void btnAlternativa_Click(object sender, EventArgs e)
         {
-            if (tbAlternativa.Text == null)
+            if (tbAlternativa.Text == "")
             {
                 MessageBox.Show("Campo de alternativa não pode ser vazio", "Aviso");
                 return;
@@ -102,10 +103,12 @@ namespace GeradorTestes.WinApp.ModuloQuestao
                     break;
 
                 case 2:
+                    if (VerificarAlternativaExistente() == true) break;
                     lblFalsa2.Text += " " + tbAlternativa.Text;
                     break;
 
                 case 3:
+                    if(VerificarAlternativaExistente() == true) break;
                     lblFalsa3.Text += " " + tbAlternativa.Text;
                     break;
 
@@ -126,6 +129,23 @@ namespace GeradorTestes.WinApp.ModuloQuestao
 
             tbAlternativa.Clear();
             tbAlternativa.Focus();
+        }
+
+        private bool VerificarAlternativaExistente()
+        {
+            string a = lblFalsa1.Text.Substring(11).Trim();
+            string b = lblFalsa2.Text.Substring(11).Trim();
+
+            if (tbAlternativa.Text == a  || tbAlternativa.Text == b)
+            {
+                MessageBox.Show("Alternativa já cadastrada", "Aviso");
+                tbAlternativa.Clear();
+                tbAlternativa.Focus();
+                contFalsas--;
+                return true;
+            }
+
+            return false;
         }
 
         private void tbAlternativa_TextChanged(object sender, EventArgs e)
@@ -159,39 +179,52 @@ namespace GeradorTestes.WinApp.ModuloQuestao
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            questao.Materia.Titulo = cbMateriaTitulo.SelectedItem.ToString();
-            questao.Materia.Disciplina.Nome = tbDisciplina.Text;
-            switch (tbSerie.Text)
+            if (VerificarMateriaVazia() == false)
             {
-                case "Primeira":
-                    questao.Materia.Serie = EnumeradorSerie.Primeira;
-                    break;
+                questao.Materia.Titulo = cbMateriaTitulo.SelectedItem.ToString();
+                questao.Materia.Disciplina.Nome = tbDisciplina.Text;
+                switch (tbSerie.Text)
+                {
+                    case "Primeira":
+                        questao.Materia.Serie = EnumeradorSerie.Primeira;
+                        break;
 
-                case "Segunda":
-                    questao.Materia.Serie = EnumeradorSerie.Segunda;
-                    break;
+                    case "Segunda":
+                        questao.Materia.Serie = EnumeradorSerie.Segunda;
+                        break;
 
-                default:
-                    break;
-            }
-            questao.alternativas.Add(lblFalsa1.Text.Substring(11));
-            questao.alternativas.Add(lblFalsa2.Text.Substring(11));
-            questao.alternativas.Add(lblFalsa3.Text.Substring(11));
-            questao.Pergunta = tbPergunta.Text;
-            questao.Resposta = tbResposta.Text;
+                    default:
+                        break;
+                }
+                questao.alternativas.Add(lblFalsa1.Text.Substring(11).Trim());
+                questao.alternativas.Add(lblFalsa2.Text.Substring(11).Trim());
+                questao.alternativas.Add(lblFalsa3.Text.Substring(11).Trim());
+                questao.Pergunta = tbPergunta.Text;
+                questao.Resposta = tbResposta.Text;
 
-            ValidationResult resultadoValidacao = GravarRegistro(questao);
+                ValidationResult resultadoValidacao = GravarRegistro(questao);
 
-            if (resultadoValidacao.IsValid == false)
-            {
-                string erro = resultadoValidacao.Errors[0].ErrorMessage;
+                if (resultadoValidacao.IsValid == false)
+                {
+                    string erro = resultadoValidacao.Errors[0].ErrorMessage;
 
-                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+                    TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
-                DialogResult = DialogResult.None;
+                    DialogResult = DialogResult.None;
+                }
             }
         }
 
+        private bool VerificarMateriaVazia()
+        {
+            if(cbMateriaTitulo.Text == "")
+            {
+                MessageBox.Show("Ao menos uma matéria deve ser escolhida", "Aviso");
+                return true;
+            }
+
+            return false;
+        }
     }
     
 }

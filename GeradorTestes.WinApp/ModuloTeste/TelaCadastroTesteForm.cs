@@ -2,6 +2,7 @@
 using GeradorTeste.Dominio;
 using GeradorTeste.Dominio.ModuloMateria;
 using GeradorTeste.Dominio.ModuloTeste;
+using GeradorTestes.Infra.Arquivo.Compartilhado;
 using GeradorTestes.Infra.Arquivo.ModuloMateria;
 using GeradorTestes.Infra.Arquivo.ModuloTeste;
 using GeradorTestes.WinApp.Compartilhado;
@@ -131,13 +132,14 @@ namespace GeradorTestes.WinApp
             }
         }
 
-        private void btnQuestao_Click(object sender, EventArgs e)
+        private void btnGerarQuestoes_Click(object sender, EventArgs e)
         {
             int numQstoesComboBox = Convert.ToInt32(cbNumeroQsts.Text);
             int i = 0;
 
             if (VerificacoesBtnQuestao() == true)
             {
+
                 numQst++;
 
                 HabilitarBotoes();
@@ -152,6 +154,8 @@ namespace GeradorTestes.WinApp
             }
             else
                 return;
+
+            btnGerarQuestoes.Enabled = false;
         }
 
         private void ExibirQuestao(int numerosEscolhidoComboBox)
@@ -212,6 +216,12 @@ namespace GeradorTestes.WinApp
             if (string.IsNullOrEmpty(cbMateria.Text))
             {
                 MessageBox.Show("Matéria deve ser selecionada", "Aviso");
+                return false;
+            }
+
+            if( Convert.ToInt32(cbNumeroQsts.Text) > questoesTeste.Count)
+            {
+                MessageBox.Show("Número de questões insuficientes para a quantidade selecionada", "Aviso");
                 return false;
             }
 
@@ -276,7 +286,11 @@ namespace GeradorTestes.WinApp
 
         private void btnGerarPDF_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("OPS! ...NÃO DEU!", "Aviso");
+            ArquivoPDF pdf = new();
+
+            pdf.GerarPDF_ItextSharp(rtTeste.Text);
+
+            MessageBox.Show("Arquivo PDF gerado com sucesso!\n\n Caminho: C: -> temp -> pdf -> Teste.pdf", "Aviso");
         }
 
         private void AdicionarAoGabarito(Questao q)

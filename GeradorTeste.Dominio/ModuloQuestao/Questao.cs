@@ -21,6 +21,10 @@ namespace GeradorTeste.Dominio
             }
         }
 
+        public string DisciplinaDaMateria
+        {
+            get { return Materia.Disciplina.Nome; }
+        }
 
         public Questao()
         {
