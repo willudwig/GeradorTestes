@@ -9,7 +9,7 @@ namespace GeradorTestes.Infra.Arquivo
 {
     public abstract class RepositorioEmArquivoBase<T> where T : EntidadeBase<T>
     {
-        protected DataContext dataContext;
+        public DataContext dataContext;
         protected int contador = 0;
 
         public RepositorioEmArquivoBase(DataContext dataContext)

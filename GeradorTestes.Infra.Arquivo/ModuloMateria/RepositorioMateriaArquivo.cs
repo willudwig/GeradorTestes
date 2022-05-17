@@ -120,5 +120,10 @@ namespace GeradorTestes.Infra.Arquivo.ModuloMateria
 
             return resultadoValidacao;
         }
+
+        public void Serializardor()
+        {
+            SerializarDados(dataContext);
+        }
     }
 }

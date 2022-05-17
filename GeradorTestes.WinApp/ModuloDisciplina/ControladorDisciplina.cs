@@ -13,13 +13,14 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
         private readonly IRepositorioMateria repoMateria;
         private readonly IRepositorioQuestao repoQuestao;
         TabelaDisciplinasControl tabelaDisciplinas;
-        ControladorMateria controladorMateria;
+        public ControladorMateria controladorMateria;
 
-        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria, IRepositorioQuestao repositorioQuestao)
+        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria, IRepositorioQuestao repositorioQuestao, ControladorMateria cm)
         {
             repoDisciplina = repositorioDisciplina;
             repoMateria = repositorioMateria;
             repoQuestao = repositorioQuestao;
+            controladorMateria = cm;
         }
 
         public void Editar()
@@ -39,14 +40,23 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
             tela.GravarRegistro = repoDisciplina.Editar;
 
-            controladorMateria = new(repoMateria, repoDisciplina);
-
             DialogResult resultado = tela.ShowDialog();
+
+            Disciplina outraDisc = new();
+
+            outraDisc.Nome = tela.nomeAntigo;
+
+            controladorMateria.antigaDisciplina = outraDisc;
 
             if (resultado == DialogResult.OK)
             {
+                repoDisciplina.Serializador();
                 CarregarDisciplinas();
             }
+
+            Disciplina nova = new();
+            nova.Nome = tela.nomeNovo;
+            controladorMateria.EditarMateriaPelaDisciplina(controladorMateria.antigaDisciplina, nova);
         }
 
         private Disciplina ObtemDisciplinaSelecionada()

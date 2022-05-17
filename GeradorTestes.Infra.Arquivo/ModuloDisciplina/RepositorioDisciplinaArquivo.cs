@@ -122,6 +122,9 @@ namespace GeradorTestes.Infra.Arquivo.ModuloDisciplina
             return resultadoValidacao;
         }
 
-       
+        public void Serializador()
+        {
+            SerializarDados(dataContext);
+        }
     }
 }

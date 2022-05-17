@@ -8,6 +8,7 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
     public partial class TelaCadastroDisciplinaForm : Form
     {
         private Disciplina disciplina;
+        public string nomeAntigo, nomeNovo;
 
         public Func<Disciplina, ValidationResult> GravarRegistro
         {
@@ -41,6 +42,7 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            nomeNovo = tbNome.Text;
             disciplina.Nome = tbNome.Text;
 
             ValidationResult resultadoValidacao = GravarRegistro(disciplina);
@@ -58,6 +60,8 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
         private void TelaCadastroDisciplinaForm_Load(object sender, EventArgs e)
         {
             TelaPrincipalForm.Instancia.AtualizarRodape("");
+            if (tbNome.Text != "")
+                nomeAntigo = tbNome.Text;
         }
 
         private void TelaCadastroDisciplinaForm_FormClosing(object sender, FormClosingEventArgs e)
