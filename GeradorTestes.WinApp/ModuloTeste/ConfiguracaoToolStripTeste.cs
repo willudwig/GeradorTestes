@@ -10,7 +10,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
         public string TooltipInserir => "inserir um novo teste";
 
-        public string TooltipEditar => "editar um teste selecionado";
+        public string TooltipEditar => "não é possível editar testes";
 
         public string TooltipExcluir => "excluir um teste selecionado";
     }
