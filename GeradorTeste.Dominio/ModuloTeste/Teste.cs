@@ -1,47 +1,47 @@
 ﻿using GeradorTeste.Dominio.Compartilhado;
-using GeradorTeste.Dominio.ModuloMateria;
+using GeradorTeste.Dominio.ModuloDisciplina;
 using System;
-using System.Collections.Generic;
 
 
 namespace GeradorTeste.Dominio.ModuloTeste
 {
     public class Teste : EntidadeBase<Teste>
     {
+        public DateTime data;
+
         public string Prova { get; set; }
-        public Materia Materia { get; set; }
+
+        public Disciplina DisciplinaTeste { get; set; }
+
         public EnumNumeroQuestoes NumeroQuestoes { get; set; }
 
         public string gabarito;
-        public string Data
+
+        public string DataString
         {
             get { return DateTime.Now.ToShortDateString(); }
         }
 
-        public string DisciplinaDaMateria
+        public string DisciplinaNome
         {
-            get { return Materia.Disciplina.Nome; }
+            get { return DisciplinaTeste.Nome; }
         }
 
-        public string TituloDaMateria
+        public string NumeroQuestoesString
         {
-            get { return Materia.Titulo; }
-        }
-
-        public string SerieDaMateria
-        {
-            get { return Materia.Serie.ToString(); }
+            get { return NumeroQuestoes.ToString(); }
         }
 
         public Teste()
         {
-            Materia = new();
+            DisciplinaTeste = new();
+            data = new();
         }
 
-        public Teste(string prova, Materia materia, EnumNumeroQuestoes numeroQuestoes)
+        public Teste(string prova, Disciplina disciplina, EnumNumeroQuestoes numeroQuestoes)
         {
             Prova = prova;
-            Materia = materia;
+            DisciplinaTeste = disciplina;
             NumeroQuestoes = numeroQuestoes;
         }
 

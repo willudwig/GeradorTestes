@@ -1,8 +1,4 @@
 ﻿using GeradorTestes.Infra.Arquivo;
-using GeradorTestes.Infra.Arquivo.ModuloQuestao;
-using GeradorTestes.Infra.Arquivo.ModuloDisciplina;
-using GeradorTestes.Infra.Arquivo.ModuloMateria;
-using GeradorTestes.Infra.Arquivo.ModuloTeste;
 using GeradorTestes.WinApp.Compartilhado;
 using GeradorTestes.WinApp.ModuloDisciplina;
 using System;
@@ -10,6 +6,10 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using GeradorTestes.WinApp.ModuloQuestao;
 using GeradorTestes.WinApp.ModuloTeste;
+using BancoDados.ModuloDisciplina;
+using BancoDados.ModuloMateria;
+using BancoDados.ModuloQuestao;
+using BancoDados.ModuloTeste;
 
 namespace GeradorTestes.WinApp
 {
@@ -35,19 +35,21 @@ namespace GeradorTestes.WinApp
 
         private void InicializarControladores()
         {
-            var repositorioDisciplina = new RepositorioDisciplinaArquivo(contextoDados);
-            var repositorioMateria = new RepositorioMateriaArquivo(contextoDados);
-            var repositorioQuestao = new RepositorioQuestaoArquivo(contextoDados);
-            var repositorioTeste = new RepositorioTesteArquivo(contextoDados);
+            var repositorioDisciplina = new RepositorioDisciplinaBancoDados();
+            var repositorioMateria = new RepositorioMateriaBancoDados();
+            var repositorioQuestao = new RepositorioQuestaoBancoDados();
+            var repositorioTeste = new RepositorioTesteBancoDados();
+            // var repositorioQuestao = new RepositorioQuestaoArquivo(contextoDados);
+            // var repositorioTeste = new RepositorioTesteArquivo(contextoDados);
 
             controladores = new Dictionary<string, IControlador>();
 
             ControladorMateria contMat = new ControladorMateria(repositorioMateria, repositorioDisciplina, repositorioQuestao);
 
-            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina, repositorioMateria));
+            controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina, repositorioMateria, contMat));
             controladores.Add("Matérias", contMat);
-            controladores.Add("Questões", new ControladorQuestao(repositorioQuestao, repositorioMateria));
-             controladores.Add("Testes", new ControladorTeste(repositorioTeste, repositorioMateria, repositorioQuestao));
+            controladores.Add("Questões", new ControladorQuestao(repositorioQuestao, repositorioMateria, repositorioDisciplina));
+            controladores.Add("Testes", new ControladorTeste(repositorioTeste, repositorioMateria, repositorioQuestao, repositorioDisciplina));
         }
 
         public static TelaPrincipalForm Instancia
@@ -86,6 +88,7 @@ namespace GeradorTestes.WinApp
         {
             ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
             HabilitarBotoesToolStrip();
+            btnEditar.Enabled = false;
             btnPDF.Enabled = true;
         }
 
@@ -117,18 +120,16 @@ namespace GeradorTestes.WinApp
 
                 panelPrincipal.Controls.Clear();
 
-                //listagemControl.Dock = DockStyle.Fill;
+                listagemControl.Dock = DockStyle.Fill;
 
                 panelPrincipal.Controls.Add(listagemControl);
             }
             catch (InvalidOperationException)
             {
-                MessageBox.Show("Operação durante redimensionamento de coluna de preenchimento automático", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro durante redimensionamento de coluna de preenchimento automático", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
         }
 
-            
-    
         private void ConfigurarToolbox()
         {
             IConfiguracaoToolStrip configuracao = controlador.ObtemConfiguracaoToolStrip();
@@ -181,8 +182,8 @@ namespace GeradorTestes.WinApp
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            TelaCadastroTesteForm telaTeste = new();
-            controlador.ExibirTelaGerarPDF();
+           TelaCadastroTesteForm telaTeste = new();
+           controlador.GerarPDF();
         }
     }
 }

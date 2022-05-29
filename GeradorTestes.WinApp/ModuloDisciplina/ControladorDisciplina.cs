@@ -12,12 +12,33 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
         private readonly IRepositorioDisciplina repoDisciplina;
         private readonly IRepositorioMateria repoMateria;
         TabelaDisciplinasControl tabelaDisciplinas;
+        ControladorMateria contMat;
 
 
-        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria)
+        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria, ControladorMateria contMat)
         {
             repoDisciplina = repositorioDisciplina;
             repoMateria = repositorioMateria;
+            this.contMat = contMat;
+        }
+
+        public void Inserir()
+        {
+            TelaCadastroDisciplinaForm tela = new();
+            tela.Disciplina = new();
+
+            tela.opcaoBotao = "inserir";
+            tela.listaDisciplinas = new();
+            tela.listaDisciplinas = repoDisciplina.SelecionarTodos();
+
+            tela.GravarRegistro = repoDisciplina.Inserir;
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarDisciplinas();
+            }
         }
 
         public void Editar()
@@ -39,19 +60,10 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
             DialogResult resultado = tela.ShowDialog();
 
-            EditarMateriaPelaDisciplina(tela.nomeAntigo, tela.Disciplina);
-
             if (resultado == DialogResult.OK)
             {
                 CarregarDisciplinas();
             }
-        }
-
-        private Disciplina ObtemDisciplinaSelecionada()
-        {
-            var numero = tabelaDisciplinas.ObtemNumerDisciplinaSelecionada();
-
-            return repoDisciplina.SelecionarPorNumero(numero);
         }
 
         public void Excluir()
@@ -75,21 +87,6 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             }
         }
 
-        public void Inserir()
-        {
-            TelaCadastroDisciplinaForm tela = new();
-            tela.Disciplina = new();
-
-            tela.GravarRegistro = repoDisciplina.Inserir;
-
-            DialogResult resultado = tela.ShowDialog();
-
-            if (resultado == DialogResult.OK)
-            {
-                CarregarDisciplinas();
-            }
-        }
-
         private void CarregarDisciplinas()
         {
             List<Disciplina> disciplinas = repoDisciplina.SelecionarTodos();
@@ -97,6 +94,13 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             tabelaDisciplinas.AtualizarRegistros(disciplinas);
 
             TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {disciplinas.Count} disciplina(s)");
+        }
+
+        private Disciplina ObtemDisciplinaSelecionada()
+        {
+            var numero = tabelaDisciplinas.ObtemNumerDisciplinaSelecionada();
+
+            return repoDisciplina.SelecionarPorNumero(numero);
         }
 
         public IConfiguracaoToolStrip ObtemConfiguracaoToolStrip()
@@ -114,7 +118,7 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             return tabelaDisciplinas;
         }
 
-        public void ExibirTelaGerarPDF()
+        public void GerarPDF()
         {
             throw new System.NotImplementedException();
         }
@@ -142,5 +146,6 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
                 tela.GravarRegistro = repoMateria.Editar;
             }
         }
+       
     }
 }

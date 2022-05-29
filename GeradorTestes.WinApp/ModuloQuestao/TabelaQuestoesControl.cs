@@ -26,6 +26,8 @@ namespace GeradorTestes.WinApp.ModuloQuestao
 
                 new DataGridViewTextBoxColumn { DataPropertyName = "DisciplinaDaMateria", HeaderText = "Disciplina"},
 
+                new DataGridViewTextBoxColumn { DataPropertyName = "SerieMateria", HeaderText = "Série"},
+
                 new DataGridViewTextBoxColumn { DataPropertyName = "Pergunta", HeaderText = "Pergunta"},
 
                 new DataGridViewTextBoxColumn { DataPropertyName = "Resposta", HeaderText = "Resposta"},

@@ -1,6 +1,6 @@
 ﻿using GeradorTeste.Dominio.Compartilhado;
 using GeradorTeste.Dominio.ModuloDisciplina;
-
+using System;
 
 namespace GeradorTeste.Dominio.ModuloMateria
 {
@@ -10,11 +10,33 @@ namespace GeradorTeste.Dominio.ModuloMateria
         public Disciplina Disciplina { get; set; }
         public EnumeradorSerie Serie { get; set; }
 
-        public string NomeDisciplina
+        public string NomeDisciplinaMateria
         {
             get
             {
                 return Disciplina.Nome;
+            }
+        }
+
+        public string SerieString
+        {
+            get
+            {
+                switch (Serie)
+                {
+                    case EnumeradorSerie.Primeira:
+                        return "Primeira";
+                        break;
+
+                    case EnumeradorSerie.Segunda:
+                        return "Segunda";
+                        break;
+
+                    default:
+                        break;
+                }
+
+                return "";
             }
         }
 
@@ -36,5 +58,6 @@ namespace GeradorTeste.Dominio.ModuloMateria
         {
             Titulo = registro.Titulo;
         }
+
     }
 }

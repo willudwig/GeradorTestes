@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using GeradorTeste.Dominio;
+using GeradorTeste.Dominio.ModuloDisciplina;
 using GeradorTeste.Dominio.ModuloMateria;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,10 @@ namespace GeradorTestes.WinApp.ModuloQuestao
         int contFalsas = 1;
         Questao questao;
         public List<Materia> materiasQuestao;
+        public List<Disciplina> disciplinasQuestao;
+        public List<Questao> listaQuestoes;
+        public string opcaoBotao;
+        public bool jaExiste;
 
         public Func<Questao, ValidationResult> GravarRegistro
         {
@@ -40,6 +45,7 @@ namespace GeradorTestes.WinApp.ModuloQuestao
         {
             InitializeComponent();
             materiasQuestao = new();
+            disciplinasQuestao = new();
         }
 
 
@@ -49,7 +55,6 @@ namespace GeradorTestes.WinApp.ModuloQuestao
         }
 
         #region não eventos
-
 
         private void LimparCamposQuestao()
         {
@@ -82,6 +87,26 @@ namespace GeradorTestes.WinApp.ModuloQuestao
             {
                 cbMateriaTitulo.Items.Add(m.Titulo);
             }
+        }
+
+        private bool VerificarMateriaExistente(Questao questao)
+        {
+            if (opcaoBotao == "inserir")
+            {
+                bool n = listaQuestoes.Exists(x => x.Pergunta.Equals(questao.Pergunta));
+
+                if (n)
+                {
+                    MessageBox.Show("Já existe esta questao", "Aviso");
+                    jaExiste = true;
+                    return true;
+                }
+                else
+
+                    return false;
+            }
+
+            return false;
         }
 
         #endregion
@@ -180,8 +205,17 @@ namespace GeradorTestes.WinApp.ModuloQuestao
         {
             if (VerificarMateriaVazia() == false)
             {
-                questao.Materia.Titulo = cbMateriaTitulo.SelectedItem.ToString();
+                questao.Materia.Titulo = cbMateriaTitulo.Text;
+                var materiaSelecionada = materiasQuestao.Find(x => x.Titulo.Equals(questao.Materia.Titulo));
+                questao.Materia.Numero = materiaSelecionada.Numero;
+
+                questao.Pergunta = tbPergunta.Text;
+                questao.Resposta = tbResposta.Text;
                 questao.Materia.Disciplina.Nome = tbDisciplina.Text;
+
+                var disciplinaSelecionada = disciplinasQuestao.Find(x => x.Nome.Equals(questao.Materia.Disciplina.Nome));
+                questao.Materia.Disciplina.Numero = disciplinaSelecionada.Numero;
+
                 switch (tbSerie.Text)
                 {
                     case "Primeira":
@@ -195,22 +229,54 @@ namespace GeradorTestes.WinApp.ModuloQuestao
                     default:
                         break;
                 }
+
                 questao.alternativas.Add(lblFalsa1.Text.Substring(11).Trim());
                 questao.alternativas.Add(lblFalsa2.Text.Substring(11).Trim());
                 questao.alternativas.Add(lblFalsa3.Text.Substring(11).Trim());
-                questao.Pergunta = tbPergunta.Text;
-                questao.Resposta = tbResposta.Text;
+               
+                string bim = cbBimestre.Text;
 
-                ValidationResult resultadoValidacao = GravarRegistro(questao);
-
-                if (resultadoValidacao.IsValid == false)
+                switch (bim)
                 {
-                    string erro = resultadoValidacao.Errors[0].ErrorMessage;
+                    case "Primeiro":
+                        questao.Bimestre = Questao.EnumeradorBimestre.Primeiro;
+                        break;
 
-                    TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+                    case "Segundo":
+                        questao.Bimestre = Questao.EnumeradorBimestre.Segundo;
+                        break;
 
-                    DialogResult = DialogResult.None;
+                    case "Terceiro":
+                        questao.Bimestre = Questao.EnumeradorBimestre.Terceiro;
+                        break;
+
+                    case "Quarto":
+                        questao.Bimestre = Questao.EnumeradorBimestre.Quarto;
+                        break;
+
+                    default:
+                        break;
                 }
+
+                if (VerificarMateriaExistente(questao) == true)
+
+                    return;
+
+                else
+                {
+                    ValidationResult resultadoValidacao = GravarRegistro(questao);
+
+                    if (resultadoValidacao.IsValid == false)
+                    {
+                        string erro = resultadoValidacao.Errors[0].ErrorMessage;
+
+                        TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+
+                        DialogResult = DialogResult.None;
+                    }
+                }
+
+                opcaoBotao = "";
             }
         }
 

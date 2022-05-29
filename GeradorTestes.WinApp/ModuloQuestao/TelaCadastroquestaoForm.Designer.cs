@@ -52,9 +52,9 @@
             this.lbSerie = new System.Windows.Forms.Label();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.pbBtnQuestao = new System.Windows.Forms.Panel();
+            this.lblTodos = new System.Windows.Forms.Label();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.lblTodos = new System.Windows.Forms.Label();
             this.pnCamposQuestao.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -79,7 +79,7 @@
             this.pnCamposQuestao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnCamposQuestao.Location = new System.Drawing.Point(0, 0);
             this.pnCamposQuestao.Name = "pnCamposQuestao";
-            this.pnCamposQuestao.Size = new System.Drawing.Size(1164, 446);
+            this.pnCamposQuestao.Size = new System.Drawing.Size(1360, 446);
             this.pnCamposQuestao.TabIndex = 0;
             // 
             // panel2
@@ -89,9 +89,9 @@
             this.panel2.Controls.Add(this.lblFalsa3);
             this.panel2.Controls.Add(this.lblFalsa1);
             this.panel2.Controls.Add(this.lblFalsa2);
-            this.panel2.Location = new System.Drawing.Point(743, 286);
+            this.panel2.Location = new System.Drawing.Point(786, 286);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(336, 75);
+            this.panel2.Size = new System.Drawing.Size(552, 75);
             this.panel2.TabIndex = 18;
             // 
             // lblFalsa3
@@ -128,7 +128,7 @@
             // 
             this.lbContador.AutoSize = true;
             this.lbContador.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbContador.Location = new System.Drawing.Point(938, 204);
+            this.lbContador.Location = new System.Drawing.Point(1197, 204);
             this.lbContador.Name = "lbContador";
             this.lbContador.Size = new System.Drawing.Size(71, 21);
             this.lbContador.TabIndex = 14;
@@ -138,7 +138,7 @@
             // 
             this.btnAlternativa.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAlternativa.Enabled = false;
-            this.btnAlternativa.Location = new System.Drawing.Point(1018, 230);
+            this.btnAlternativa.Location = new System.Drawing.Point(1277, 229);
             this.btnAlternativa.Name = "btnAlternativa";
             this.btnAlternativa.Size = new System.Drawing.Size(61, 44);
             this.btnAlternativa.TabIndex = 8;
@@ -150,7 +150,7 @@
             // 
             this.lbAlternativa.AutoSize = true;
             this.lbAlternativa.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbAlternativa.Location = new System.Drawing.Point(742, 204);
+            this.lbAlternativa.Location = new System.Drawing.Point(786, 204);
             this.lbAlternativa.Name = "lbAlternativa";
             this.lbAlternativa.Size = new System.Drawing.Size(123, 21);
             this.lbAlternativa.TabIndex = 13;
@@ -158,11 +158,11 @@
             // 
             // tbAlternativa
             // 
-            this.tbAlternativa.Location = new System.Drawing.Point(743, 230);
+            this.tbAlternativa.Location = new System.Drawing.Point(786, 230);
             this.tbAlternativa.Margin = new System.Windows.Forms.Padding(6);
             this.tbAlternativa.Multiline = true;
             this.tbAlternativa.Name = "tbAlternativa";
-            this.tbAlternativa.Size = new System.Drawing.Size(266, 44);
+            this.tbAlternativa.Size = new System.Drawing.Size(482, 44);
             this.tbAlternativa.TabIndex = 12;
             this.tbAlternativa.TextChanged += new System.EventHandler(this.tbAlternativa_TextChanged);
             // 
@@ -182,14 +182,15 @@
             this.tbResposta.Margin = new System.Windows.Forms.Padding(6);
             this.tbResposta.Multiline = true;
             this.tbResposta.Name = "tbResposta";
-            this.tbResposta.Size = new System.Drawing.Size(335, 44);
+            this.tbResposta.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbResposta.Size = new System.Drawing.Size(378, 131);
             this.tbResposta.TabIndex = 5;
             // 
             // lbPergunta
             // 
             this.lbPergunta.AutoSize = true;
             this.lbPergunta.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbPergunta.Location = new System.Drawing.Point(396, 97);
+            this.lbPergunta.Location = new System.Drawing.Point(396, 91);
             this.lbPergunta.Name = "lbPergunta";
             this.lbPergunta.Size = new System.Drawing.Size(72, 21);
             this.lbPergunta.TabIndex = 9;
@@ -203,9 +204,7 @@
             "Primeiro",
             "Segundo",
             "Terceiro",
-            "Quarto",
-            "Quinto",
-            "Sexto"});
+            "Quarto"});
             this.cbBimestre.Location = new System.Drawing.Point(397, 44);
             this.cbBimestre.Name = "cbBimestre";
             this.cbBimestre.Size = new System.Drawing.Size(150, 33);
@@ -213,11 +212,12 @@
             // 
             // tbPergunta
             // 
-            this.tbPergunta.Location = new System.Drawing.Point(395, 124);
+            this.tbPergunta.Location = new System.Drawing.Point(395, 118);
             this.tbPergunta.Margin = new System.Windows.Forms.Padding(6);
             this.tbPergunta.Multiline = true;
             this.tbPergunta.Name = "tbPergunta";
-            this.tbPergunta.Size = new System.Drawing.Size(682, 55);
+            this.tbPergunta.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbPergunta.Size = new System.Drawing.Size(943, 74);
             this.tbPergunta.TabIndex = 4;
             // 
             // lbBimestre
@@ -259,7 +259,7 @@
             // tbDisciplina
             // 
             this.tbDisciplina.BackColor = System.Drawing.SystemColors.Window;
-            this.tbDisciplina.Location = new System.Drawing.Point(6, 137);
+            this.tbDisciplina.Location = new System.Drawing.Point(11, 137);
             this.tbDisciplina.Name = "tbDisciplina";
             this.tbDisciplina.ReadOnly = true;
             this.tbDisciplina.Size = new System.Drawing.Size(328, 31);
@@ -268,7 +268,7 @@
             // tbSerie
             // 
             this.tbSerie.BackColor = System.Drawing.SystemColors.Window;
-            this.tbSerie.Location = new System.Drawing.Point(6, 228);
+            this.tbSerie.Location = new System.Drawing.Point(11, 228);
             this.tbSerie.Name = "tbSerie";
             this.tbSerie.ReadOnly = true;
             this.tbSerie.Size = new System.Drawing.Size(150, 31);
@@ -278,7 +278,7 @@
             // 
             this.cbMateriaTitulo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMateriaTitulo.FormattingEnabled = true;
-            this.cbMateriaTitulo.Location = new System.Drawing.Point(6, 44);
+            this.cbMateriaTitulo.Location = new System.Drawing.Point(11, 44);
             this.cbMateriaTitulo.Name = "cbMateriaTitulo";
             this.cbMateriaTitulo.Size = new System.Drawing.Size(328, 33);
             this.cbMateriaTitulo.TabIndex = 0;
@@ -288,7 +288,7 @@
             // 
             this.lbDisciplina.AutoSize = true;
             this.lbDisciplina.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbDisciplina.Location = new System.Drawing.Point(6, 110);
+            this.lbDisciplina.Location = new System.Drawing.Point(11, 110);
             this.lbDisciplina.Name = "lbDisciplina";
             this.lbDisciplina.Size = new System.Drawing.Size(77, 21);
             this.lbDisciplina.TabIndex = 6;
@@ -298,7 +298,7 @@
             // 
             this.lbSerie.AutoSize = true;
             this.lbSerie.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbSerie.Location = new System.Drawing.Point(6, 204);
+            this.lbSerie.Location = new System.Drawing.Point(11, 204);
             this.lbSerie.Name = "lbSerie";
             this.lbSerie.Size = new System.Drawing.Size(45, 21);
             this.lbSerie.TabIndex = 4;
@@ -308,7 +308,7 @@
             // 
             this.lbTitulo.AutoSize = true;
             this.lbTitulo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbTitulo.Location = new System.Drawing.Point(6, 20);
+            this.lbTitulo.Location = new System.Drawing.Point(11, 20);
             this.lbTitulo.Name = "lbTitulo";
             this.lbTitulo.Size = new System.Drawing.Size(49, 21);
             this.lbTitulo.TabIndex = 3;
@@ -324,8 +324,19 @@
             this.pbBtnQuestao.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pbBtnQuestao.Location = new System.Drawing.Point(0, 374);
             this.pbBtnQuestao.Name = "pbBtnQuestao";
-            this.pbBtnQuestao.Size = new System.Drawing.Size(1164, 72);
+            this.pbBtnQuestao.Size = new System.Drawing.Size(1360, 72);
             this.pbBtnQuestao.TabIndex = 1;
+            // 
+            // lblTodos
+            // 
+            this.lblTodos.AutoSize = true;
+            this.lblTodos.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTodos.ForeColor = System.Drawing.SystemColors.Window;
+            this.lblTodos.Location = new System.Drawing.Point(784, 41);
+            this.lblTodos.Name = "lblTodos";
+            this.lblTodos.Size = new System.Drawing.Size(293, 21);
+            this.lblTodos.TabIndex = 8;
+            this.lblTodos.Text = "Todos os campos devem ser preenchidos";
             // 
             // btnLimpar
             // 
@@ -351,23 +362,12 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // lblTodos
-            // 
-            this.lblTodos.AutoSize = true;
-            this.lblTodos.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTodos.ForeColor = System.Drawing.SystemColors.Window;
-            this.lblTodos.Location = new System.Drawing.Point(784, 41);
-            this.lblTodos.Name = "lblTodos";
-            this.lblTodos.Size = new System.Drawing.Size(293, 21);
-            this.lblTodos.TabIndex = 8;
-            this.lblTodos.Text = "Todos os campos devem ser preenchidos";
-            // 
             // TelaCadastroQuestaoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1164, 446);
+            this.ClientSize = new System.Drawing.Size(1360, 446);
             this.Controls.Add(this.pbBtnQuestao);
             this.Controls.Add(this.pnCamposQuestao);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

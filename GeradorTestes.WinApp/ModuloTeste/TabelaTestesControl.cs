@@ -21,13 +21,11 @@ namespace GeradorTestes.WinApp.ModuloTeste
             {
                 new DataGridViewTextBoxColumn { DataPropertyName = "Numero", HeaderText = "Número"},
 
-                new DataGridViewTextBoxColumn { DataPropertyName = "DisciplinaDaMateria", HeaderText = "Disciplina"},
+                new DataGridViewTextBoxColumn { DataPropertyName = "DisciplinaNome", HeaderText = "Disciplina"},
 
-                new DataGridViewTextBoxColumn { DataPropertyName = "TituloDaMateria", HeaderText = "Matéria"},
+                new DataGridViewTextBoxColumn { DataPropertyName = "NumeroQuestoesString", HeaderText = "Quantidade Questões"},
 
-                new DataGridViewTextBoxColumn { DataPropertyName = "SerieDaMateria", HeaderText = "Série"},
-
-                new DataGridViewTextBoxColumn { DataPropertyName = "Data", HeaderText = "Data"},
+                new DataGridViewTextBoxColumn { DataPropertyName = "DataString", HeaderText = "Data"},
 
             };
 

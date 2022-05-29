@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.Windows.Forms;
 
 namespace GeradorTestes.WinApp.Compartilhado
@@ -14,7 +10,6 @@ namespace GeradorTestes.WinApp.Compartilhado
         void Excluir();
         UserControl ObtemListagem();
         IConfiguracaoToolStrip ObtemConfiguracaoToolStrip();
-        void ExibirTelaGerarPDF();
-
+        void GerarPDF();
     }
 }

@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.0.1" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <ProjectReference Include="..\GeradorTeste.Dominio\GeradorTeste.Dominio.csproj" />
   </ItemGroup>
 
 </Project>

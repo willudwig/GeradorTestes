@@ -1,5 +1,4 @@
 ﻿using GeradorTeste.Dominio.Compartilhado;
-using System.Collections.Generic;
 
 namespace GeradorTeste.Dominio.ModuloDisciplina
 {

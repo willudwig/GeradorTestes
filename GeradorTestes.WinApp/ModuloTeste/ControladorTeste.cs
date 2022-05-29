@@ -1,9 +1,12 @@
-﻿using GeradorTeste.Dominio;
+﻿using BancoDados.ModuloDisciplina;
+using BancoDados.ModuloMateria;
+using BancoDados.ModuloQuestao;
+using BancoDados.ModuloTeste;
+using GeradorTeste.Dominio;
+using GeradorTeste.Dominio.ModuloDisciplina;
 using GeradorTeste.Dominio.ModuloMateria;
 using GeradorTeste.Dominio.ModuloTeste;
-using GeradorTestes.Infra.Arquivo.ModuloMateria;
-using GeradorTestes.Infra.Arquivo.ModuloQuestao;
-using GeradorTestes.Infra.Arquivo.ModuloTeste;
+using GeradorTestes.Infra.Arquivo.Compartilhado;
 using GeradorTestes.WinApp.Compartilhado;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -13,24 +16,27 @@ namespace GeradorTestes.WinApp.ModuloTeste
     public class ControladorTeste : IControlador
     {
 
-        private readonly RepositorioTesteArquivo repoTeste;
-        private readonly RepositorioMateriaArquivo repoMateria;
-        private readonly RepositorioQuestaoArquivo repoQuestao;
+        private readonly RepositorioTesteBancoDados repoTeste;
+        private readonly RepositorioMateriaBancoDados repoMateria;
+        private readonly RepositorioQuestaoBancoDados repoQuestao; 
+        private readonly RepositorioDisciplinaBancoDados repoDisciplina;
+
         private TabelaTestesControl tabelaTestes;
 
 
-        public ControladorTeste(RepositorioTesteArquivo repoTeste, RepositorioMateriaArquivo repoMateria, RepositorioQuestaoArquivo repoQuestao)
+        public ControladorTeste(RepositorioTesteBancoDados repoTeste, RepositorioMateriaBancoDados repoMateria, RepositorioQuestaoBancoDados repoQuestao, RepositorioDisciplinaBancoDados repoDisciplina)
         {
             this.repoTeste = repoTeste;
             this.repoMateria = repoMateria;
             this.repoQuestao = repoQuestao;
+            this.repoDisciplina = repoDisciplina;
         }
 
         public void Editar()
         {
             Teste testeSelecionado = ObtemTesteSelecionado();
 
-            if (testeSelecionado == null)
+            if (testeSelecionado == null || testeSelecionado.Numero == 0)
             {
                 MessageBox.Show("Selecione um teste primeiro",
                 "Edição de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -43,7 +49,9 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
             tela.Teste = testeSelecionado;
 
-            CarregarMateriasNoTeste(tela);
+            CarregarDisciplinasNoTeste(tela);
+
+            tela.questoesTeste = CarregarQuestoes();
 
             tela.GravarRegistro = repoTeste.Editar;
 
@@ -56,12 +64,11 @@ namespace GeradorTestes.WinApp.ModuloTeste
            
         }
 
-
         public void Excluir()
         {
             Teste testeSelecionado = ObtemTesteSelecionado();
 
-            if (testeSelecionado == null)
+            if (testeSelecionado == null || testeSelecionado.Numero == 0)
             {
                 MessageBox.Show("Selecione um teste primeiro",
                 "Exclusão de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -85,7 +92,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
             tela.GravarRegistro = repoTeste.Inserir;
 
-            CarregarMateriasNoTeste(tela);
+            CarregarDisciplinasNoTeste(tela);
 
             tela.questoesTeste = CarregarQuestoes();
 
@@ -128,38 +135,58 @@ namespace GeradorTestes.WinApp.ModuloTeste
             TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {testes.Count} teste(s)");
         }
 
-        public void CarregarMateriasNoTeste(TelaCadastroTesteForm tela)
-        {
-            List<Materia> materias = repoMateria.SelecionarTodos();
-
-            tela.materiasTeste = materias;
-        }
-
         public List<Questao> CarregarQuestoes()
         {
             var todas = repoQuestao.SelecionarTodos();
-
             return todas;
         }
 
-        public void ExibirTelaGerarPDF()
+        public void GerarPDF()
         {
             Teste testeSelecionado = ObtemTesteSelecionado();
 
-            if (testeSelecionado == null)
+            if (testeSelecionado == null || testeSelecionado.Numero == 0)
             {
                 MessageBox.Show("Selecione um teste primeiro",
                 "Edição de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            TelaCadastroTesteForm tela = new();
+            ArquivoPDF pdf = new();
 
-            tela.Teste = testeSelecionado;
+            pdf.GerarPDF_ItextSharp(testeSelecionado.Prova);
 
-            tela.DeixarSomenteBotaoPDF();
+            MessageBox.Show("Arquivo PDF gerado com sucesso!\n\n Caminho: C: -> temp -> pdf -> Teste.pdf", "Aviso");
 
-            tela.ShowDialog();
+            AbrirPDFDiretorrio();
+        }
+
+        private void AbrirPDFDiretorrio()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.InitialDirectory = @"C:\temp\pdf";
+            openFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    System.Diagnostics.Process.Start(openFileDialog.FileName);
+                }
+                catch(System.ComponentModel.Win32Exception)
+                {
+                    MessageBox.Show("Adquira a versão Premium do Gerador de Teste 1.0\npara poder visualizar o arquivo PDF pelo programa!", "Abrir PDF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+        }
+
+        private void CarregarDisciplinasNoTeste(TelaCadastroTesteForm tela)
+        {
+            List<Disciplina> disciplinas = repoDisciplina.SelecionarTodos();
+
+            tela.disciplinasTeste = disciplinas;
         }
 
     }

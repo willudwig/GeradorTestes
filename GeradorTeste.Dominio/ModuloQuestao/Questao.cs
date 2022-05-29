@@ -26,6 +26,14 @@ namespace GeradorTeste.Dominio
             get { return Materia.Disciplina.Nome; }
         }
 
+        public string SerieMateria
+        {
+            get
+            {
+                return Materia.Serie.ToString();
+            }
+        }
+
         public Questao()
         {
             Materia = new();

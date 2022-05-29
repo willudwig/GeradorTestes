@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BancoDados\BancoDados.csproj" />
     <ProjectReference Include="..\GeradorTeste.Dominio\GeradorTeste.Dominio.csproj" />
     <ProjectReference Include="..\GeradorTestes.Infra.Arquivo\GeradorTestes.Infra.Arquivo.csproj" />
   </ItemGroup>

@@ -126,5 +126,6 @@ namespace GeradorTestes.Infra.Arquivo.ModuloDisciplina
         {
             SerializarDados(dataContext);
         }
+
     }
 }

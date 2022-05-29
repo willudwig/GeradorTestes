@@ -33,7 +33,7 @@ namespace GeradorTestes.WinApp
                     return;
             }
 
-            contexto.GravarDados();
+           // contexto.GravarDados();
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

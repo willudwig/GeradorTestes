@@ -1,5 +1,6 @@
 ﻿using GeradorTeste.Dominio.ModuloDisciplina;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
@@ -8,7 +9,8 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
     public partial class TelaCadastroDisciplinaForm : Form
     {
         private Disciplina disciplina;
-        public string nomeAntigo, nomeNovo;
+        public string nomeAntigo, nomeNovo, opcaoBotao;
+        public List<Disciplina> listaDisciplinas;
 
         public Func<Disciplina, ValidationResult> GravarRegistro
         {
@@ -45,21 +47,48 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             nomeNovo = tbNome.Text;
             disciplina.Nome = tbNome.Text;
 
-            ValidationResult resultadoValidacao = GravarRegistro(disciplina);
+            if (VerificarDisciplinaExistente(disciplina) == true)
 
-            if (resultadoValidacao.IsValid == false)
+                    return;
+            else
             {
-                string erro = resultadoValidacao.Errors[0].ErrorMessage;
+                ValidationResult resultadoValidacao = GravarRegistro(disciplina);
 
-                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+                if (resultadoValidacao.IsValid == false)
+                {
+                    string erro = resultadoValidacao.Errors[0].ErrorMessage;
 
-                DialogResult = DialogResult.None;
+                    TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+
+                    DialogResult = DialogResult.None;
+                }
             }
+
+            opcaoBotao = "";
+        }
+
+        private bool VerificarDisciplinaExistente(Disciplina disciplina)
+        {
+            if (opcaoBotao == "inserir")
+            {
+                bool n = listaDisciplinas.Exists(x => x.Nome.Equals(disciplina.Nome));
+
+                if (n)
+                {
+                    MessageBox.Show("Já existe uma disciplina com esse nome", "Aviso");
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
         }
 
         private void TelaCadastroDisciplinaForm_Load(object sender, EventArgs e)
         {
             TelaPrincipalForm.Instancia.AtualizarRodape("");
+
             if (tbNome.Text != "")
                 nomeAntigo = tbNome.Text;
         }

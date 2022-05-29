@@ -15,6 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorTeste.Dominio", "Ger
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorTestes.Infra.Arquivo", "GeradorTestes.Infra.Arquivo\GeradorTestes.Infra.Arquivo.csproj", "{1E52C458-E038-4070-AFCF-D007DBF05C24}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A032A197-8BA5-406A-90DA-4A1E007333D2}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Banco de Dados\GeradorTestesDB\SQLQuery2.sql = ..\..\Banco de Dados\GeradorTestesDB\SQLQuery2.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Banco de Dados", "Banco de Dados", "{DF053AF8-8CC6-4DBC-9FEA-BF16C3FEA0E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoDados", "BancoDados\BancoDados.csproj", "{72B45EB7-B1FA-41DF-BA60-5C55946D43FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +42,10 @@ Global
 		{1E52C458-E038-4070-AFCF-D007DBF05C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E52C458-E038-4070-AFCF-D007DBF05C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E52C458-E038-4070-AFCF-D007DBF05C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B45EB7-B1FA-41DF-BA60-5C55946D43FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B45EB7-B1FA-41DF-BA60-5C55946D43FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B45EB7-B1FA-41DF-BA60-5C55946D43FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B45EB7-B1FA-41DF-BA60-5C55946D43FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +54,9 @@ Global
 		{8F6D9262-7A52-4947-B5EA-2513DF04DE14} = {0A53D75B-430B-4B43-9B23-90F3DD57241C}
 		{AEE8E6C2-87F8-4DDE-8344-A88525B89B8C} = {705A8A83-8756-4DB6-8C87-38E08727C6A8}
 		{1E52C458-E038-4070-AFCF-D007DBF05C24} = {17109CDD-3A3F-4222-9516-988BE1AE72DB}
+		{A032A197-8BA5-406A-90DA-4A1E007333D2} = {17109CDD-3A3F-4222-9516-988BE1AE72DB}
+		{DF053AF8-8CC6-4DBC-9FEA-BF16C3FEA0E1} = {17109CDD-3A3F-4222-9516-988BE1AE72DB}
+		{72B45EB7-B1FA-41DF-BA60-5C55946D43FF} = {DF053AF8-8CC6-4DBC-9FEA-BF16C3FEA0E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B381802-ABC9-4E53-88CD-9841028D102B}

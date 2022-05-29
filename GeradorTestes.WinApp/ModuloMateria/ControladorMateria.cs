@@ -4,7 +4,6 @@ using GeradorTeste.Dominio.ModuloMateria;
 using GeradorTeste.Dominio.ModuloQuestao;
 using GeradorTestes.WinApp.Compartilhado;
 using GeradorTestes.WinApp.ModuloMateria;
-using GeradorTestes.WinApp.ModuloQuestao;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -22,6 +21,28 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             repoMateria = repositorioMateria;
             repoDisciplina = repositorioDisciplina;
             repoQuestao = repositorioQuestao;
+        }
+        public void Inserir()
+        {
+            TelaCadastroMateriaForm tela = new();
+            tela.Materia = new();
+
+            tela.opcaoBotao = "inserir";
+            tela.listaMaterias = new();
+            tela.listaMaterias = repoMateria.SelecionarTodos();
+
+            tela.GravarRegistro = repoMateria.Inserir;
+
+            tela.DialogResult = DialogResult.None;
+
+            CarregarDisciplinasNaMateria(tela);
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                CarregarMaterias();
+            }
         }
 
         public void Editar()
@@ -45,79 +66,41 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
             DialogResult resultado = tela.ShowDialog();
 
-            EditarQuestaoPelaMateria(tela.nomeAntigo, tela.Materia);
-
             if (resultado == DialogResult.OK)
             {
                 CarregarMaterias();
-            }
-        }
-
-        private void EditarQuestaoPelaMateria(string nomeAntigo, Materia materia)
-        {
-            TelaCadastroQuestaoForm tela = new();
-
-            List<Questao> questoes = repoQuestao.SelecionarTodos();
-
-            if (questoes.Count == 0)
-                return;
-
-            List<Questao> qstsSelecionadas = questoes.FindAll(q => q.Materia.Titulo == nomeAntigo);
-
-            if (qstsSelecionadas.Count == 0)
-                return;
-
-            foreach (Questao q in qstsSelecionadas)
-            {
-                q.Materia = materia;
-
-                tela.Questao = q;
-
-                tela.GravarRegistro = repoQuestao.Editar;
             }
         }
 
         public void Excluir()
         {
-            Materia matSelecionado = ObtemMateriaSelecionada();
+            Materia matSelecionada = ObtemMateriaSelecionada();
 
-            if (matSelecionado == null)
+            if (VerificarMateriaVinculadaQuestao(matSelecionada) == false)
             {
-                MessageBox.Show("Selecione uma matéria primeiro",
-                "Exclusão de Matérias", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+                if (matSelecionada == null)
+                {
+                    MessageBox.Show("Selecione uma matéria primeiro",
+                    "Exclusão de Matérias", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
 
-            DialogResult resultado = MessageBox.Show("Deseja realmente excluir a matéria?",
-                "Exclusão de Matéria", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                DialogResult resultado = MessageBox.Show("Deseja realmente excluir a matéria?",
+                    "Exclusão de Matéria", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (resultado == DialogResult.OK)
-            {
-                repoMateria.Excluir(matSelecionado);
-                CarregarMaterias();
+                if (resultado == DialogResult.OK)
+                {
+                    repoMateria.Excluir(matSelecionada);
+                    CarregarMaterias();
+                }
+                else
+                    return;
             }
         }
 
-        public void ExibirTelaGerarPDF()
+        public void GerarPDF()
         {
             throw new System.NotImplementedException();
-        }
-
-        public void Inserir()
-        {
-            TelaCadastroMateriaForm tela = new();
-            tela.Materia = new();
-
-            tela.GravarRegistro = repoMateria.Inserir;
-
-            CarregarDisciplinasNaMateria(tela);
-
-            DialogResult resultado = tela.ShowDialog();
-
-            if (resultado == DialogResult.OK)
-            {
-                CarregarMaterias();
-            }
         }
 
         public IConfiguracaoToolStrip ObtemConfiguracaoToolStrip()
@@ -158,5 +141,18 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             return repoMateria.SelecionarPorNumero(numero);
         }
 
+        private bool VerificarMateriaVinculadaQuestao(Materia materia)
+        {
+            List<Questao> questoes = repoQuestao.SelecionarTodos();
+
+            bool resultado = questoes.Exists(q => q.TituloMateria.Equals(materia.Titulo));
+
+            if (resultado)
+            {
+                MessageBox.Show("A matéria selecionada está vinculada a uma questão\n e não poderá ser excluída.", "Aviso", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+
+            return resultado;
+        }
     }
 }

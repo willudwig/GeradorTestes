@@ -12,6 +12,8 @@ namespace GeradorTestes.WinApp.ModuloMateria
     {
         private Materia materia;
         public string nomeAntigo;
+        public List<Materia> listaMaterias;
+        public string opcaoBotao;
 
         public List<Disciplina> disciplinasMateria;
 
@@ -33,7 +35,6 @@ namespace GeradorTestes.WinApp.ModuloMateria
             }
         }
 
-        
         public TelaCadastroMateriaForm()
         {
             InitializeComponent();
@@ -57,6 +58,64 @@ namespace GeradorTestes.WinApp.ModuloMateria
             nomeAntigo = tbTitulo.Text;
         }
 
+        private void TelaCadastroMateriaForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            TelaPrincipalForm.Instancia.AtualizarRodape("");
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            if (VerificarCombosVazios() == true)
+            {
+                materia.Titulo = tbTitulo.Text;
+                materia.Serie = (EnumeradorSerie)cbSerie.SelectedIndex;
+                materia.Disciplina.Nome = cbDisciplina.Text;
+                var disc = disciplinasMateria.Find(x => x.Nome.Equals(materia.Disciplina.Nome));
+                materia.Disciplina.Numero = disc.Numero;
+               
+                if (VerificarMateriaExistente(materia) == true)
+
+                     return;
+
+                else
+                {
+                    ValidationResult resultadoValidacao = GravarRegistro(materia);
+
+                    if (resultadoValidacao.IsValid == false)
+                    {
+                        string erro = resultadoValidacao.Errors[0].ErrorMessage;
+
+                        TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+
+                        DialogResult = DialogResult.None;
+                    }
+                }
+
+                opcaoBotao = "";
+            }
+            else
+                return;
+        }
+
+        private bool VerificarMateriaExistente(Materia  materia)
+        {
+            if (opcaoBotao == "inserir")
+            {
+                bool n = listaMaterias.Exists(x => x.Titulo.Equals(materia.Titulo));
+
+                if (n)
+                {
+                    MessageBox.Show("Já existe uma matéria com esse nome", "Aviso");
+                    return true;
+                }
+                else
+
+                    return false;
+            }
+
+            return false;
+        }
+
         private void DeixarComboBoxSelecionados()
         {
             cbSerie.SelectedIndex = 0;
@@ -70,34 +129,6 @@ namespace GeradorTestes.WinApp.ModuloMateria
             {
                 cbDisciplina.Items.Add(d.Nome);
             }
-        }
-
-        private void TelaCadastroMateriaForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            TelaPrincipalForm.Instancia.AtualizarRodape("");
-        }
-
-        private void btnOK_Click(object sender, EventArgs e)
-        {
-            if (VerificarCombosVazios() == true)
-            {
-                materia.Titulo = tbTitulo.Text;
-                materia.Serie = (EnumeradorSerie)cbSerie.SelectedIndex;
-                materia.Disciplina.Nome = cbDisciplina.Text;
-
-                ValidationResult resultadoValidacao = GravarRegistro(materia);
-
-                if (resultadoValidacao.IsValid == false)
-                {
-                    string erro = resultadoValidacao.Errors[0].ErrorMessage;
-
-                    TelaPrincipalForm.Instancia.AtualizarRodape(erro);
-
-                    DialogResult = DialogResult.None;
-                }
-            }
-            else
-                return;
         }
 
         private bool VerificarCombosVazios()

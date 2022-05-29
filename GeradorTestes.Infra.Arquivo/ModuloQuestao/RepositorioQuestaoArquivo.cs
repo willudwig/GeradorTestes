@@ -120,5 +120,15 @@ namespace GeradorTestes.Infra.Arquivo.ModuloQuestao
 
             return resultadoValidacao;
         }
+
+        public void AdicionarAlternativas(Questao questao)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditarAlternativas(Questao questao)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
