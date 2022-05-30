@@ -236,8 +236,17 @@ namespace BancoDados
         {
             ConectarBancoDados();
 
-            sql = @"SELECT MAT.NUMERO, MAT.TITULO, MAT.DISCIPLINA_NUMERO, MAT.SERIE, DISC.NOME AS DISCIPLINA_NOME FROM [TBMATERIA] AS MAT 
+            sql = @"SELECT MAT.NUMERO, 
+                           MAT.TITULO, 
+                           MAT.DISCIPLINA_NUMERO, 
+                           MAT.SERIE, 
+
+                           DISC.NOME AS DISCIPLINA_NOME
+
+                    FROM [TBMATERIA] AS MAT 
+
 	                    INNER JOIN [TBDISCIPLINA] AS DISC
+
 		                    ON DISC.NUMERO = MAT.DISCIPLINA_NUMERO";
 
             SqlCommand cmdSelecao = new();
@@ -440,81 +449,6 @@ namespace BancoDados
             DesconectarBancoDados();
         }
 
-        public void EditarAlternativaBancoDados(Questao questao)
-        {
-            if (VerificarTabelaAlternativaVazia() == true)
-            {
-                AdicionarAlternativas(questao);
-            }
-            else
-            {
-                if (questao.alternativas.Count == 3)
-
-                    AdicionarAlternativas(questao);
-
-                else
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        questao.alternativas.Remove(questao.alternativas[0]);
-                    }
-
-                    ExcluirAlternativasQuestao(questao.Numero);
-
-                    AdicionarAlternativas(questao);
-                }
-            }
-        }
-       
-        private bool VerificarTabelaAlternativaVazia()
-        {
-            ConectarBancoDados();
-
-            sql = @"SELECT COUNT(*) FROM TBALTERNATIVA";
-
-            SqlCommand cmdVerifica = new(sql, conexao);
-
-            int dados = Convert.ToInt32(cmdVerifica.ExecuteScalar());
-
-            DesconectarBancoDados();
-
-            if (dados == 0)
-
-                return true;
-
-            else
-
-                return false;
-        }
-
-        public void AdicionarAlternativas(Questao questao)
-        {
-            ConectarBancoDados();
-
-            sql = @"INSERT INTO [TBALTERNATIVA] (
-                                                  [QUESTAO_NUMERO],
-                                                  [DESCRICAO]  
-                                                )
-                                         VALUES (
-                                                  @QUESTAO_NUMERO,
-                                                  @DESCRICAO
-                                                ); 
-
-                                                SELECT SCOPE_IDENTITY();";
-
-            foreach (string item in questao.alternativas)
-            {
-                SqlCommand cmdInserirAlternativa = new(sql, conexao);
-
-                cmdInserirAlternativa.Parameters.AddWithValue("DESCRICAO", item);
-                cmdInserirAlternativa.Parameters.AddWithValue("QUESTAO_NUMERO", questao.Numero);
-
-                cmdInserirAlternativa.ExecuteNonQuery();
-            }
-
-            DesconectarBancoDados();
-        }
-
         public void ExcluirQuestaoNoBancoDados(int numero)
         {
             ExcluirAlternativasQuestao(numero);
@@ -528,22 +462,6 @@ namespace BancoDados
             cmdExclusao.Connection = conexao;
             cmdExclusao.CommandText = sql;
             cmdExclusao.Parameters.AddWithValue("NUMERO", numero);
-            cmdExclusao.ExecuteNonQuery();
-
-            DesconectarBancoDados();
-        }
-
-        private void ExcluirAlternativasQuestao(int numeroQuestao)
-        {
-            ConectarBancoDados();
-
-            SqlCommand cmdExclusao = new();
-
-            sql = @"DELETE FROM [TBALTERNATIVA] WHERE [QUESTAO_NUMERO] = @NUMERO";
-
-            cmdExclusao.Connection = conexao;
-            cmdExclusao.CommandText = sql;
-            cmdExclusao.Parameters.AddWithValue("NUMERO", numeroQuestao);
             cmdExclusao.ExecuteNonQuery();
 
             DesconectarBancoDados();
@@ -808,6 +726,108 @@ namespace BancoDados
             return questoes;
         }
 
+        public void EditarAlternativaBancoDados(Questao questao)
+        {
+            if (VerificarTabelaAlternativaVazia() == true)
+            {
+                AdicionarAlternativas(questao);
+            }
+            else
+            {
+                if (questao.alternativas.Count == 3)
+
+                    AdicionarAlternativas(questao);
+
+                else
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        questao.alternativas.Remove(questao.alternativas[0]);
+                    }
+
+                    ExcluirAlternativasQuestao(questao.Numero);
+
+                    AdicionarAlternativas(questao);
+                }
+            }
+        }
+
+        private bool VerificarTabelaAlternativaVazia()
+        {
+            ConectarBancoDados();
+
+            sql = @"SELECT COUNT(*) FROM TBALTERNATIVA";
+
+            SqlCommand cmdVerifica = new(sql, conexao);
+
+            int dados = Convert.ToInt32(cmdVerifica.ExecuteScalar());
+
+            DesconectarBancoDados();
+
+            if (dados == 0)
+
+                return true;
+
+            else
+
+                return false;
+        }
+
+        public void AdicionarAlternativas(Questao questao)
+        {
+            ConectarBancoDados();
+
+            sql = @"INSERT INTO [TBALTERNATIVA] (
+                                                  [QUESTAO_NUMERO],
+                                                  [DESCRICAO]  
+                                                )
+                                         VALUES (
+                                                  @QUESTAO_NUMERO,
+                                                  @DESCRICAO
+                                                ); 
+
+                                                SELECT SCOPE_IDENTITY();";
+
+            foreach (string item in questao.alternativas)
+            {
+                SqlCommand cmdInserirAlternativa = new(sql, conexao);
+
+                cmdInserirAlternativa.Parameters.AddWithValue("DESCRICAO", item);
+                cmdInserirAlternativa.Parameters.AddWithValue("QUESTAO_NUMERO", questao.Numero);
+
+                cmdInserirAlternativa.ExecuteNonQuery();
+            }
+
+            DesconectarBancoDados();
+        }
+
+        private void ExcluirAlternativasQuestao(int numeroQuestao)
+        {
+            ConectarBancoDados();
+
+            SqlCommand cmdExclusao = new();
+
+            sql = @"DELETE FROM [TBALTERNATIVA] WHERE [QUESTAO_NUMERO] = @NUMERO";
+
+            cmdExclusao.Connection = conexao;
+            cmdExclusao.CommandText = sql;
+            cmdExclusao.Parameters.AddWithValue("NUMERO", numeroQuestao);
+            cmdExclusao.ExecuteNonQuery();
+
+            DesconectarBancoDados();
+        }
+
+        private void LerAlternativas(SqlDataReader leitor, Questao questao)
+        {
+            questao.alternativas = new();
+
+            while (leitor.Read())
+            {
+                questao.alternativas.Add(leitor["DESCRICAO"].ToString());
+            }
+
+        }
+
         public void SelecionarAlternativas(Questao questao)
         {
             ConectarBancoDados();
@@ -828,16 +848,6 @@ namespace BancoDados
             DesconectarBancoDados();
         }
 
-        private void LerAlternativas(SqlDataReader leitor, Questao questao)
-        {
-            questao.alternativas = new();
-
-            while (leitor.Read())
-            {
-                questao.alternativas.Add(leitor["DESCRICAO"].ToString());
-            }
-
-        }
 
         #endregion
 
@@ -904,7 +914,7 @@ namespace BancoDados
             cmdEdicao.Parameters.AddWithValue("NUMEROQUESTOES", teste.NumeroQuestoes.ToString());
             cmdEdicao.Parameters.AddWithValue("GABARITO", teste.gabarito.ToString());
             cmdEdicao.Parameters.AddWithValue("NUMERO", teste.Numero);
-            cmdEdicao.Parameters.AddWithValue("DATA", Convert.ToDateTime(teste.DataString));
+            cmdEdicao.Parameters.AddWithValue("DATA", Convert.ToDateTime(teste.data));
 
             cmdEdicao.ExecuteNonQuery();
 

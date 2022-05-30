@@ -69,6 +69,7 @@ namespace GeradorTestes.WinApp.ModuloMateria
             {
                 materia.Titulo = tbTitulo.Text;
                 materia.Serie = (EnumeradorSerie)cbSerie.SelectedIndex;
+
                 materia.Disciplina.Nome = cbDisciplina.Text;
                 var disc = disciplinasMateria.Find(x => x.Nome.Equals(materia.Disciplina.Nome));
                 materia.Disciplina.Numero = disc.Numero;

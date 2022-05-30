@@ -184,6 +184,19 @@ namespace GeradorTestes.WinApp
         }
 
         #region não eventos
+        private void ExibirCabecalho()
+        {
+            if (qAleatoria == null)
+                return;
+
+            cabecalho = $"Data: " + teste.DataString.ToString() + "\n" +
+                            $"\n" +
+                            $"Teste de " + qAleatoria.Materia.Disciplina.Nome + "\n" +
+                            $"Série: " + qAleatoria.Materia.Serie.ToString() + "\n" +
+                            $"\n" +
+                            $"\n";
+        }
+
         private void ExibirQuestao(int numerosEscolhidoComboBox)
         {
             var rnd = new Random();
@@ -214,6 +227,7 @@ namespace GeradorTestes.WinApp
                                     $"" + altB + "\n" +
                                     $"" + altC + "\n" +
                                     $"" + altD + "\n" +
+                                    $"\n" +
                                     $"\n";
 
                     aleatorias.Remove(escolhida);
@@ -224,19 +238,6 @@ namespace GeradorTestes.WinApp
                 i++;
             }
 
-        }
-
-        private void ExibirCabecalho()
-        {
-            if (qAleatoria == null)
-                return;
-
-            cabecalho = $"Data: " + teste.DataString.ToString() + "\n" +
-                            $"\n" +
-                            $"Teste de " + qAleatoria.Materia.Disciplina.Nome + "\n" +
-                            $"Série: " + qAleatoria.Materia.Serie.ToString() + "\n" +
-                            $"\n" +
-                            $"\n";
         }
 
         private void HabilitarBotoes()
