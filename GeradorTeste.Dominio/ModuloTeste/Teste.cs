@@ -19,7 +19,7 @@ namespace GeradorTeste.Dominio.ModuloTeste
 
         public string DataString
         {
-            get { return DateTime.Now.ToShortDateString(); }
+            get { return data.ToString(); }
         }
 
         public string DisciplinaNome
